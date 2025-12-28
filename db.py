@@ -247,7 +247,7 @@ def list_premium_groups(product_slug: str):
     """Return list of groups with their plans for a product slug."""
     with get_conn() as c:
         cur = c.cursor()
-        cur.execute("SELECT id,title FROM products WHERE slug=%s AND active=TRUE", (product_slug,))
+        cur.execute("SELECT id,title,group_key FROM products WHERE slug=%s AND active=TRUE", (product_slug,))
         prod = cur.fetchone()
         if not prod:
             return []
