@@ -284,3 +284,15 @@ def fulfill_stock_order(
             "UPDATE stock_orders SET status='active' WHERE id=%s",
             (soid,),
         )
+def get_stock_order(soid: int):
+    with get_conn() as c:
+        cur = c.cursor()
+        cur.execute(
+            """SELECT so.id, so.phone, so.months, so.created_at,
+                      sp.name AS product_name
+               FROM stock_orders so
+               JOIN stock_products sp ON sp.id = so.product_id
+               WHERE so.id = %s""",
+            (soid,),
+        )
+        return cur.fetchone()
