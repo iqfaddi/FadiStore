@@ -35,7 +35,6 @@ def create_app(bot_sender=None):
         return bool(request.session.get("is_admin"))
 
     async def notify_stock_order(soid: int):
-        """Send Telegram notification for STOCK orders (manual fulfillment)."""
         token = os.getenv("STOCK_NOTIFY_BOT_TOKEN", "").strip()
         chat_id = os.getenv("STOCK_NOTIFY_CHAT_ID", "").strip()
         if not token or not chat_id:
@@ -86,7 +85,8 @@ def create_app(bot_sender=None):
                 {"request": request, "error": "Invalid credentials"}
             )
 
-        request.session["uid"] = int(user["id"])
+        request.session["uid"] = user["id"]
+        request.session["phone"] = user["phone"]
         return RedirectResponse("/dashboard", status_code=302)
 
     @app.get("/dashboard", response_class=HTMLResponse)
@@ -95,11 +95,8 @@ def create_app(bot_sender=None):
         if not uid:
             return RedirectResponse("/", status_code=302)
 
-        user = db.get_user_by_id(uid)
-
-        stock_products = db.list_stock_products(active_only=True)
-        stock_orders = db.list_user_stock_orders(uid)
-        stock_accounts = db.list_user_stock_accounts(uid)
+        phone = request.session.get("phone")
+        user = db.get_user_by_phone(phone)
 
         return templates.TemplateResponse(
             "dashboard.html",
@@ -109,9 +106,9 @@ def create_app(bot_sender=None):
                 "balance": db.fmt_lbp(int(user["balance"])),
                 "packages": db.list_packages(),
                 "orders": db.list_user_orders(uid),
-                "stock_products": stock_products,
-                "stock_orders": stock_orders,
-                "stock_accounts": stock_accounts,
+                "stock_products": db.list_stock_products(),
+                "stock_orders": db.list_user_stock_orders(phone),
+                "stock_accounts": db.list_user_stock_accounts(phone),
                 "fmt": db.fmt_lbp,
             }
         )
@@ -131,13 +128,13 @@ def create_app(bot_sender=None):
         if bot_sender:
             try:
                 await bot_sender.notify_new_order(oid)
-            except Exception as e:
-                print("BOT ERROR:", e)
+            except Exception:
+                pass
 
         return RedirectResponse("/dashboard", status_code=302)
 
     # --------------------
-    # STOCK purchase (manual fulfillment)
+    # STOCK purchase
     # --------------------
     @app.post("/buy_stock")
     async def buy_stock(
@@ -145,20 +142,22 @@ def create_app(bot_sender=None):
         product_id: int = Form(...),
         months: int = Form(...),
     ):
-        uid = require_login(request)
-        if not uid:
+        phone = request.session.get("phone")
+        if not phone:
             return RedirectResponse("/", status_code=302)
 
         months = max(1, min(int(months), 24))
-        soid = db.create_stock_order(uid, product_id, months)
+        soid = db.create_stock_order(phone, product_id, months)
+
         try:
             await notify_stock_order(soid)
-        except Exception as e:
-            print("STOCK NOTIFY ERROR:", e)
+        except Exception:
+            pass
+
         return RedirectResponse("/dashboard", status_code=302)
 
     # --------------------
-    # Admin panel (manual fulfillment)
+    # Admin panel
     # --------------------
     @app.get("/admin", response_class=HTMLResponse)
     async def admin_login_page(request: Request):
@@ -210,9 +209,8 @@ def create_app(bot_sender=None):
         if not require_admin(request):
             return RedirectResponse("/admin", status_code=302)
 
-        # parse YYYY-MM-DD from form
         db.fulfill_stock_order(
-            int(soid),
+            soid,
             account_email.strip(),
             account_password.strip(),
             profile_name.strip(),
