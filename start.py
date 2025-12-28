@@ -1,2 +1,7 @@
+import os
 import uvicorn
-uvicorn.run('webapp:create_app', factory=True)
+from webapp import create_app
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(create_app(), host="0.0.0.0", port=port)
