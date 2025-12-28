@@ -2,7 +2,4 @@ fastapi
 uvicorn
 jinja2
 python-multipart
-aiogram
-python-dotenv
-itsdangerous
 psycopg2-binary

@@ -1,20 +1,22 @@
-from fastapi import FastAPI, Form
+
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-import db
-from bot_stock import stock_sender
+from fastapi.templating import Jinja2Templates
+from starlette.middleware.sessions import SessionMiddleware
+import os, db
 
 def create_app():
     app = FastAPI()
+    templates = Jinja2Templates(directory="templates")
+    app.add_middleware(SessionMiddleware, secret_key=os.getenv("SECRET_KEY","change-me"))
     db.init_db()
 
     @app.get("/", response_class=HTMLResponse)
-    async def home():
-        return "<h2>Ushare + Stock Ready</h2>"
+    async def login(request: Request):
+        return templates.TemplateResponse("login.html", {"request": request})
 
-    @app.post("/buy_stock")
-    async def buy_stock(phone: str = Form(...), service: str = Form(...), months: int = Form(...)):
-        order = db.create_stock_order(phone, service, months)
-        await stock_sender.notify(order)
-        return {"status": "ok"}
+    @app.get("/dashboard", response_class=HTMLResponse)
+    async def dashboard(request: Request):
+        return templates.TemplateResponse("dashboard.html", {"request": request})
 
     return app
