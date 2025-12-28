@@ -15,8 +15,10 @@ ADMIN_ID = int(os.getenv("ADMIN_ID", "0"))
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
+
 def is_admin(uid: int) -> bool:
     return uid == ADMIN_ID
+
 
 # ================== BOT SENDER ==================
 
@@ -43,6 +45,11 @@ class BotSender:
 
         await bot.send_message(ADMIN_ID, text, reply_markup=kb)
 
+    # ✅ هذه الدالة المطلوبة لإشعارات STOCK
+    async def send_message(self, text: str):
+        await bot.send_message(ADMIN_ID, text)
+
+
 bot_sender = BotSender()
 
 # ================== COMMANDS ==================
@@ -66,6 +73,7 @@ async def create_user_cmd(msg: types.Message):
 
     db.create_user(phone, hash_password(password))
     await msg.answer(f"✅ User Created\n📱 {phone}\n🔑 {password}")
+
 
 @dp.message(Command("addbalance"))
 async def add_balance_cmd(msg: types.Message):
@@ -92,6 +100,7 @@ async def add_balance_cmd(msg: types.Message):
         f"💰 New Balance: {db.fmt_lbp(int(u['balance']) + amount)} LBP"
     )
 
+
 @dp.message(Command("userinfo"))
 async def user_info_cmd(msg: types.Message):
     if not is_admin(msg.from_user.id):
@@ -113,6 +122,7 @@ async def user_info_cmd(msg: types.Message):
         f"💰 Balance: {db.fmt_lbp(int(u['balance']))} LBP\n"
         f"🆔 ID: {u['id']}"
     )
+
 
 # ================== CALLBACKS ==================
 
@@ -150,6 +160,7 @@ async def callbacks(call: types.CallbackQuery):
 
         await call.message.edit_text("❌ Order Rejected", reply_markup=None)
         await call.answer("Rejected")
+
 
 # ================== RUN ==================
 
