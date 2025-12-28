@@ -301,3 +301,8 @@ def get_user_by_id(uid: int):
         cur = c.cursor()
         cur.execute("SELECT * FROM users WHERE id=%s", (uid,))
         return cur.fetchone()
+def fmt_lbp(amount: int) -> str:
+    try:
+        return f"{amount:,}"
+    except Exception:
+        return str(amount)
