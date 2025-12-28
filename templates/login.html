@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ushare Alfa - Login</title>
+  <style>
+    body{
+      font-family:Arial;
+      background:#0f172a;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      margin:0
+    }
+    .card{
+      width:360px;
+      background:#020617;
+      border:1px solid #1f2937;
+      border-radius:14px;
+      padding:22px
+    }
+    h1{margin:0 0 6px 0;font-size:22px}
+    p{margin:0 0 16px 0;color:#cbd5e1;font-size:13px}
+    input{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid #334155;
+      background:#0b1220;
+      color:#fff;
+      margin-bottom:10px
+    }
+    button{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:#2563eb;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer
+    }
+    .err{
+      background:#7f1d1d;
+      border:1px solid #ef4444;
+      padding:10px;
+      border-radius:10px;
+      margin-bottom:12px
+    }
+    small{
+      display:block;
+      margin-top:14px;
+      color:#94a3b8;
+      font-size:12px;
+      text-align:center
+    }
+    .wa{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:6px;
+      color:#25D366;
+      text-decoration:none;
+      font-weight:600
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Ushare Alfa</h1>
+    <p>Login with the phone & password provided by the admin.</p>
+
+    {% if error %}
+      <div class="err">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/login">
+      <input name="phone" placeholder="Phone number" required />
+      <input name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <small>
+      Need access? Contact the admin.<br>
+
+      <a class="wa" href="https://wa.me/9613177862" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#25D366" viewBox="0 0 24 24">
+          <path d="M20.52 3.48A11.91 11.91 0 0012.02 0C5.39 0 0 5.38 0 12a11.9 11.9 0 001.67 6.03L0 24l6.18-1.62A11.93 11.93 0 0012.02 24C18.64 24 24 18.62 24 12a11.9 11.9 0 00-3.48-8.52zm-8.5 18.4a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.67.96.98-3.58-.24-.37a9.88 9.88 0 01-1.51-5.3c0-5.46 4.45-9.9 9.92-9.9a9.9 9.9 0 016.99 2.9 9.82 9.82 0 012.9 7c0 5.45-4.45 9.88-9.98 9.88z"/>
+        </svg>
+        +961 3 177 862
+      </a>
+    </small>
+  </div>
+</body>
+</html>
