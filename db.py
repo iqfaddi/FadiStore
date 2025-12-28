@@ -296,3 +296,8 @@ def get_stock_order(soid: int):
             (soid,),
         )
         return cur.fetchone()
+def get_user_by_id(uid: int):
+    with get_conn() as c:
+        cur = c.cursor()
+        cur.execute("SELECT * FROM users WHERE id=%s", (uid,))
+        return cur.fetchone()
