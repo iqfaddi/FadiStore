@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "FadiStore" }}</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#0b0f19;color:#e8eefc;margin:0}
+    a{color:#a8c7ff;text-decoration:none}
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .card{background:#111a2e;border:1px solid #1f2b46;border-radius:14px;padding:18px;margin:12px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .btn{display:inline-block;background:#2b6cff;color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+    .btn2{display:inline-block;background:#223052;color:#fff;padding:10px 14px;border-radius:10px;border:1px solid #2a3a61;cursor:pointer}
+    select,input{width:100%;padding:10px;border-radius:10px;border:1px solid #2a3a61;background:#0d1426;color:#e8eefc}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .muted{color:#9db1d9;font-size:13px}
+    .hr{height:1px;background:#223052;margin:14px 0}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #223052;text-align:left;font-size:14px}
+    .tag{padding:4px 8px;border-radius:999px;background:#223052;border:1px solid #2a3a61;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div style="font-size:20px;font-weight:700;">FadiStore</div>
+        {% if phone %}<div class="muted">📱 {{ phone }} · 💰 {{ balance }} LBP</div>{% endif %}
+      </div>
+      <div>
+        {% if phone %}
+          <a class="btn2" href="/">Sections</a>
+          <a class="btn2" href="/my-orders">My Orders</a>
+          <a class="btn2" href="/logout">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

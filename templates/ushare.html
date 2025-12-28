@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin:0 0 6px 0;">Alfa uShare</h2>
+  <div class="muted">Select package, enter number, then Buy.</div>
+</div>
+
+<div class="card">
+  <form method="post" action="/buy-ushare">
+    <label class="muted">Package</label>
+    <select name="package_id" required>
+      {% for p in packages %}
+        <option value="{{ p.id }}">{{ p.name }} - {{ fmt(p.price) }} LBP</option>
+      {% endfor %}
+    </select>
+    <div style="height:10px"></div>
+    <label class="muted">User Number</label>
+    <input name="user_number" placeholder="03xxxxxx" required />
+    <div class="hr"></div>
+    <button class="btn" type="submit">Buy</button>
+  </form>
+</div>
+{% endblock %}

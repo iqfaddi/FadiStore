@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin:0 0 6px 0;">My Orders</h2>
+  <div class="muted">Your uShare & Premium orders appear here. If delivered, you will see account details.</div>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Type</th><th>Item</th><th>Status</th><th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for o in orders %}
+      <tr>
+        <td>{{ o.id }}</td>
+        <td><span class="tag">{{ o.order_type }}</span></td>
+        <td>{{ o.item }}</td>
+        <td>{{ o.status }}</td>
+        <td>{{ o.created_at }}</td>
+      </tr>
+      {% if o.delivery %}
+      <tr>
+        <td colspan="5">
+          <div class="muted"><b>Delivery:</b> {{ o.delivery }}</div>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

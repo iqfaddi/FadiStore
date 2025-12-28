@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2 style="margin:0 0 6px 0;">{{ product_title }}</h2>
+  {% if perks %}
+    <div class="muted">{{ perks|safe }}</div>
+  {% endif %}
+</div>
+
+{% for g in groups %}
+  <div class="card">
+    <h3 style="margin:0 0 10px 0;">{{ g.group_name }}</h3>
+    <form method="post" action="/buy-premium">
+      <input type="hidden" name="group_key" value="{{ g.group_key }}" />
+      <label class="muted">Duration</label>
+      <select name="plan_id" onchange="updatePrice_{{ loop.index }}(this)" required>
+        {% for pl in g.plans %}
+          <option value="{{ pl.id }}" data-usd="{{ '%.2f'|format(pl.price_usd) }}">{{ pl.duration_label }} - {{ '%.2f'|format(pl.price_usd) }}$</option>
+        {% endfor %}
+      </select>
+      <div style="height:10px"></div>
+      <div><span class="muted">Price</span><div style="font-size:18px;font-weight:700;" id="price_{{ loop.index }}">{{ '%.2f'|format(g.plans[0].price_usd) }}$</div></div>
+      <div class="muted">(Deducted as LBP at rate)</div>
+      <div class="hr"></div>
+      <button class="btn" type="submit">Buy</button>
+    </form>
+  </div>
+  <script>
+    function updatePrice_{{ loop.index }}(sel){
+      var opt = sel.options[sel.selectedIndex];
+      document.getElementById("price_{{ loop.index }}").innerText = parseFloat(opt.dataset.usd).toFixed(2) + "$";
+    }
+  </script>
+{% endfor %}
+{% endblock %}
