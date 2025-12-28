@@ -1,6 +1,4 @@
 import os
-from datetime import date, timedelta
-
 import httpx
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -13,23 +11,20 @@ from security import verify_password
 
 def create_app(bot_sender=None):
     app = FastAPI()
-
     templates = Jinja2Templates(directory="templates")
 
-    # Sessions
     app.add_middleware(
         SessionMiddleware,
         secret_key=os.getenv("SECRET_KEY", "change-me")
     )
 
-    # Init DB
     db.init_db()
 
     # --------------------
     # Helpers
     # --------------------
     def require_login(request: Request):
-        return request.session.get("uid")
+        return request.session.get("phone")
 
     def require_admin(request: Request):
         return bool(request.session.get("is_admin"))
@@ -57,45 +52,37 @@ def create_app(bot_sender=None):
             await client.post(url, data={"chat_id": chat_id, "text": text})
 
     # --------------------
-    # Routes
+    # Auth
     # --------------------
     @app.get("/", response_class=HTMLResponse)
     async def login_page(request: Request):
-        return templates.TemplateResponse(
-            "login.html",
-            {"request": request, "error": None}
-        )
+        return templates.TemplateResponse("login.html", {"request": request, "error": None})
+
+    @app.post("/login")
+    async def login(request: Request, phone: str = Form(...), password: str = Form(...)):
+        user = db.get_user_by_phone(phone)
+        if not user or not verify_password(password, user["password_hash"]):
+            return templates.TemplateResponse(
+                "login.html", {"request": request, "error": "Invalid credentials"}
+            )
+
+        request.session["phone"] = user["phone"]
+        return RedirectResponse("/dashboard", status_code=302)
 
     @app.get("/logout")
     async def logout(request: Request):
         request.session.clear()
         return RedirectResponse("/", status_code=302)
 
-    @app.post("/login")
-    async def login(
-        request: Request,
-        phone: str = Form(...),
-        password: str = Form(...)
-    ):
-        user = db.get_user_by_phone(phone)
-
-        if not user or not verify_password(password, user["password_hash"]):
-            return templates.TemplateResponse(
-                "login.html",
-                {"request": request, "error": "Invalid credentials"}
-            )
-
-        request.session["uid"] = user["id"]
-        request.session["phone"] = user["phone"]
-        return RedirectResponse("/dashboard", status_code=302)
-
+    # --------------------
+    # User Dashboard
+    # --------------------
     @app.get("/dashboard", response_class=HTMLResponse)
     async def dashboard(request: Request):
-        uid = require_login(request)
-        if not uid:
+        phone = require_login(request)
+        if not phone:
             return RedirectResponse("/", status_code=302)
 
-        phone = request.session.get("phone")
         user = db.get_user_by_phone(phone)
 
         return templates.TemplateResponse(
@@ -105,44 +92,19 @@ def create_app(bot_sender=None):
                 "phone": user["phone"],
                 "balance": db.fmt_lbp(int(user["balance"])),
                 "packages": db.list_packages(),
-                "orders": db.list_user_orders(uid),
                 "stock_products": db.list_stock_products(),
                 "stock_orders": db.list_user_stock_orders(phone),
                 "stock_accounts": db.list_user_stock_accounts(phone),
                 "fmt": db.fmt_lbp,
-            }
+            },
         )
 
-    @app.post("/buy")
-    async def buy(
-        request: Request,
-        package_id: int = Form(...),
-        user_number: str = Form(...)
-    ):
-        uid = require_login(request)
-        if not uid:
-            return RedirectResponse("/", status_code=302)
-
-        oid = db.create_order(uid, package_id, user_number)
-
-        if bot_sender:
-            try:
-                await bot_sender.notify_new_order(oid)
-            except Exception:
-                pass
-
-        return RedirectResponse("/dashboard", status_code=302)
-
     # --------------------
-    # STOCK purchase
+    # Buy Stock
     # --------------------
     @app.post("/buy_stock")
-    async def buy_stock(
-        request: Request,
-        product_id: int = Form(...),
-        months: int = Form(...),
-    ):
-        phone = request.session.get("phone")
+    async def buy_stock(request: Request, product_id: int = Form(...), months: int = Form(...)):
+        phone = require_login(request)
         if not phone:
             return RedirectResponse("/", status_code=302)
 
@@ -157,26 +119,20 @@ def create_app(bot_sender=None):
         return RedirectResponse("/dashboard", status_code=302)
 
     # --------------------
-    # Admin panel
+    # Admin
     # --------------------
     @app.get("/admin", response_class=HTMLResponse)
     async def admin_login_page(request: Request):
-        return templates.TemplateResponse(
-            "admin_login.html",
-            {"request": request, "error": None},
-        )
+        return templates.TemplateResponse("admin_login.html", {"request": request, "error": None})
 
     @app.post("/admin/login")
-    async def admin_login(
-        request: Request,
-        password: str = Form(...),
-    ):
+    async def admin_login(request: Request, password: str = Form(...)):
         admin_password = os.getenv("ADMIN_PANEL_PASSWORD", "").strip()
         if not admin_password or password != admin_password:
             return templates.TemplateResponse(
-                "admin_login.html",
-                {"request": request, "error": "Invalid admin password"},
+                "admin_login.html", {"request": request, "error": "Invalid admin password"}
             )
+
         request.session["is_admin"] = True
         return RedirectResponse("/admin/dashboard", status_code=302)
 
@@ -192,8 +148,7 @@ def create_app(bot_sender=None):
 
         pending = db.list_pending_stock_orders()
         return templates.TemplateResponse(
-            "admin_dashboard.html",
-            {"request": request, "pending": pending},
+            "admin_dashboard.html", {"request": request, "pending": pending}
         )
 
     @app.post("/admin/fulfill_stock")
@@ -220,7 +175,7 @@ def create_app(bot_sender=None):
         return RedirectResponse("/admin/dashboard", status_code=302)
 
     # --------------------
-    # Health check
+    # Health
     # --------------------
     @app.get("/healthz")
     async def healthz():
