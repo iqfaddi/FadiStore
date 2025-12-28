@@ -1,0 +1,33 @@
+{% if orders and orders|length > 0 %}
+<table>
+  <thead><tr><th>Date</th><th>Item</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for o in orders %}
+      <tr>
+        <td class="muted">{{ o.created_at }}</td>
+        <td>
+          {% if o.order_type == 'ushare' %}
+            Alfa uShare - {{ o.package_name }}<br><span class="muted">{{ o.user_number }}</span>
+          {% else %}
+            {{ o.product_name }}<br><span class="muted">{{ o.duration }}</span>
+          {% endif %}
+        </td>
+        <td><span class="badge">{{ o.status }}</span></td>
+      </tr>
+      {% if o.delivery_notes or o.delivery_phone or o.delivery_email %}
+      <tr>
+        <td></td>
+        <td colspan="2" class="muted" style="font-size:12px">
+          {% if o.delivery_phone %}Phone: {{ o.delivery_phone }}<br>{% endif %}
+          {% if o.delivery_email %}Email: {{ o.delivery_email }}<br>{% endif %}
+          {% if o.delivery_password %}Password: {{ o.delivery_password }}<br>{% endif %}
+          {% if o.delivery_notes %}Notes: {{ o.delivery_notes }}{% endif %}
+        </td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <div class="muted">No orders yet.</div>
+{% endif %}

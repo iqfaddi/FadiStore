@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ushare Alfa - Dashboard</title>
+  <style>
+    body{font-family:Arial;background:#0f172a;color:#fff;margin:0}
+    .top{padding:18px 16px;border-bottom:1px solid #1f2937;background:#020617;display:flex;justify-content:space-between;align-items:center}
+    .wrap{max-width:860px;margin:0 auto;padding:16px}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.grid{grid-template-columns:1.2fr 0.8fr}}
+    .card{background:#020617;border:1px solid #1f2937;border-radius:14px;padding:16px}
+    .muted{color:#cbd5e1}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#0b1220;border:1px solid #334155;font-size:12px}
+    .pkg{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed #334155;gap:10px}
+    .pkg:last-child{border-bottom:none}
+    button{padding:10px 12px;border:none;border-radius:10px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}
+    input{padding:8px;border-radius:8px;border:1px solid #334155;background:#020617;color:#fff;width:100%}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #1f2937;padding:8px;text-align:left;font-size:13px}
+    .ok{color:#22c55e}
+    .bad{color:#ef4444}
+    .pend{color:#f59e0b}
+    a{color:#93c5fd;text-decoration:none}
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <div>
+      <div style="font-weight:800">Ushare Alfa</div>
+      <div class="muted" style="font-size:13px">Phone: {{ phone }}</div>
+    </div>
+    <div>
+      <span class="pill">Balance: {{ balance }} LBP</span>
+      <a href="/logout" style="margin-left:10px" class="pill">Logout</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- Buy Package -->
+      <div class="card">
+        <h3 style="margin-top:0">Buy Package</h3>
+        <div class="muted" style="margin-bottom:12px">
+          Enter the number, then request the package.
+        </div>
+
+        {% for p in packages %}
+          <div class="pkg">
+            <div style="flex:1">
+              <div style="font-weight:800">{{ p["name"] }}</div>
+              <div class="muted" style="font-size:13px">{{ fmt(p["price"]) }} LBP</div>
+            </div>
+
+            <form method="post" action="/buy" style="flex:1;margin:0">
+              <input type="hidden" name="package_id" value="{{ p['id'] }}"/>
+
+              <input
+                type="text"
+                name="user_number"
+                placeholder="Add Number"
+                required
+                style="margin-bottom:6px"
+              />
+
+              <button type="submit" style="width:100%">Request</button>
+            </form>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Orders -->
+      <div class="card">
+        <h3 style="margin-top:0">My Orders</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Package</th>
+              <th>Price</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for o in orders %}
+            <tr>
+              <td>{{ o["id"] }}</td>
+              <td>{{ o["package_name"] }}</td>
+              <td>{{ fmt(o["package_price"]) }}</td>
+              <td>
+                {% if o["status"] == "approved" %}
+                  <span class="ok">Approved</span>
+                {% elif o["status"] == "rejected" %}
+                  <span class="bad">Rejected</span>
+                {% else %}
+                  <span class="pend">Pending</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+
+            {% if orders|length == 0 %}
+              <tr>
+                <td colspan="4" class="muted">No orders yet.</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
