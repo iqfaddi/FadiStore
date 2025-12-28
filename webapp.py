@@ -1,5 +1,4 @@
 import os
-import httpx
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -30,9 +29,7 @@ def create_app(bot_sender=None):
         return bool(request.session.get("is_admin"))
 
     async def notify_stock_order(soid: int):
-        token = os.getenv("STOCK_NOTIFY_BOT_TOKEN", "").strip()
-        chat_id = os.getenv("STOCK_NOTIFY_CHAT_ID", "").strip()
-        if not token or not chat_id:
+        if not bot_sender:
             return
 
         o = db.get_stock_order(soid)
@@ -47,23 +44,29 @@ def create_app(bot_sender=None):
             f"🧾 Order ID: {o['id']}"
         )
 
-        url = f"https://api.telegram.org/bot{token}/sendMessage"
-        async with httpx.AsyncClient(timeout=10) as client:
-            await client.post(url, data={"chat_id": chat_id, "text": text})
+        await bot_sender.send_message(text)
 
     # --------------------
     # Auth
     # --------------------
     @app.get("/", response_class=HTMLResponse)
     async def login_page(request: Request):
-        return templates.TemplateResponse("login.html", {"request": request, "error": None})
+        return templates.TemplateResponse(
+            "login.html",
+            {"request": request, "error": None}
+        )
 
     @app.post("/login")
-    async def login(request: Request, phone: str = Form(...), password: str = Form(...)):
+    async def login(
+        request: Request,
+        phone: str = Form(...),
+        password: str = Form(...)
+    ):
         user = db.get_user_by_phone(phone)
         if not user or not verify_password(password, user["password_hash"]):
             return templates.TemplateResponse(
-                "login.html", {"request": request, "error": "Invalid credentials"}
+                "login.html",
+                {"request": request, "error": "Invalid credentials"}
             )
 
         request.session["phone"] = user["phone"]
@@ -103,7 +106,11 @@ def create_app(bot_sender=None):
     # Buy Stock
     # --------------------
     @app.post("/buy_stock")
-    async def buy_stock(request: Request, product_id: int = Form(...), months: int = Form(...)):
+    async def buy_stock(
+        request: Request,
+        product_id: int = Form(...),
+        months: int = Form(...)
+    ):
         phone = require_login(request)
         if not phone:
             return RedirectResponse("/", status_code=302)
@@ -123,14 +130,21 @@ def create_app(bot_sender=None):
     # --------------------
     @app.get("/admin", response_class=HTMLResponse)
     async def admin_login_page(request: Request):
-        return templates.TemplateResponse("admin_login.html", {"request": request, "error": None})
+        return templates.TemplateResponse(
+            "admin_login.html",
+            {"request": request, "error": None}
+        )
 
     @app.post("/admin/login")
-    async def admin_login(request: Request, password: str = Form(...)):
+    async def admin_login(
+        request: Request,
+        password: str = Form(...)
+    ):
         admin_password = os.getenv("ADMIN_PANEL_PASSWORD", "").strip()
         if not admin_password or password != admin_password:
             return templates.TemplateResponse(
-                "admin_login.html", {"request": request, "error": "Invalid admin password"}
+                "admin_login.html",
+                {"request": request, "error": "Invalid admin password"}
             )
 
         request.session["is_admin"] = True
@@ -148,7 +162,8 @@ def create_app(bot_sender=None):
 
         pending = db.list_pending_stock_orders()
         return templates.TemplateResponse(
-            "admin_dashboard.html", {"request": request, "pending": pending}
+            "admin_dashboard.html",
+            {"request": request, "pending": pending}
         )
 
     @app.post("/admin/fulfill_stock")
@@ -172,6 +187,7 @@ def create_app(bot_sender=None):
             start_date,
             end_date,
         )
+
         return RedirectResponse("/admin/dashboard", status_code=302)
 
     # --------------------
