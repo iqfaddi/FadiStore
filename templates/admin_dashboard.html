@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body{font-family:Arial;background:#0f172a;color:#fff;margin:0}
+    .top{padding:18px 16px;border-bottom:1px solid #1f2937;background:#020617;display:flex;justify-content:space-between;align-items:center}
+    .wrap{max-width:980px;margin:0 auto;padding:16px}
+    .card{background:#020617;border:1px solid #1f2937;border-radius:14px;padding:16px;margin-bottom:14px}
+    .muted{color:#cbd5e1}
+    a{color:#93c5fd;text-decoration:none}
+    input{padding:8px;border-radius:8px;border:1px solid #334155;background:#020617;color:#fff;width:100%}
+    button{padding:10px 12px;border:none;border-radius:10px;background:#2563eb;color:#fff;font-weight:800;cursor:pointer}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #1f2937;padding:8px;text-align:left;font-size:13px;vertical-align:top}
+    .grid2{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <div style="font-weight:900">Admin Dashboard</div>
+      <div class="muted small">Pending stock orders + manual fulfillment</div>
+    </div>
+    <div>
+      <a href="/admin/logout">Logout</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h3 style="margin-top:0">Pending Stock Orders</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>User</th>
+            <th>Service</th>
+            <th>Months</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pending %}
+            <tr>
+              <td>#{{ p['id'] }}</td>
+              <td>{{ p['phone'] }}</td>
+              <td>{{ p['product_name'] }}</td>
+              <td>{{ p['months'] }}</td>
+              <td>{{ p['created_at'] }}</td>
+            </tr>
+          {% endfor %}
+          {% if pending|length == 0 %}
+            <tr><td colspan="5" class="muted">No pending stock orders.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Fulfill Stock Order</h3>
+      <div class="muted" style="margin-bottom:12px">Add email/password/profile + start/end dates for a pending order.</div>
+
+      <form method="post" action="/admin/fulfill_stock">
+        <div class="grid2">
+          <div>
+            <div class="muted small" style="margin-bottom:6px">Stock Order ID</div>
+            <input name="soid" placeholder="e.g. 12" required />
+          </div>
+          <div>
+            <div class="muted small" style="margin-bottom:6px">Profile Name (optional)</div>
+            <input name="profile_name" placeholder="Profile 1" />
+          </div>
+          <div>
+            <div class="muted small" style="margin-bottom:6px">Account Email</div>
+            <input name="account_email" required />
+          </div>
+          <div>
+            <div class="muted small" style="margin-bottom:6px">Account Password</div>
+            <input name="account_password" required />
+          </div>
+          <div>
+            <div class="muted small" style="margin-bottom:6px">Start Date (YYYY-MM-DD)</div>
+            <input name="start_date" placeholder="2025-12-28" required />
+          </div>
+          <div>
+            <div class="muted small" style="margin-bottom:6px">End Date (YYYY-MM-DD)</div>
+            <input name="end_date" placeholder="2026-01-28" required />
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+        <button type="submit" style="width:100%">Save Credentials (Activate)</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
