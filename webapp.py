@@ -5,7 +5,6 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
 import db
-# from security import verify_password   # ❌ لن نستخدمه الآن
 
 
 def create_app(bot_sender=None):
@@ -38,22 +37,14 @@ def create_app(bot_sender=None):
             {"request": request, "error": None}
         )
 
-    # 🔴 LOGIN بدون تحقق من الباسورد (TEST MODE)
-    @app.post("/login")
-    async def login(
-        request: Request,
-        phone: str = Form(...),
-        password: str = Form(...)  # يبقى موجود لكن لن يُستخدم
-    ):
-        user = db.get_user_by_phone(phone)
-
+    # 🔥 دخول تلقائي للتجربة
+    @app.get("/autologin")
+    async def autologin(request: Request):
+        # اختر أي مستخدم موجود في القاعدة
+        user = db.get_user_by_phone("03177862")  # غيّر الرقم إذا لزم
         if not user:
-            return templates.TemplateResponse(
-                "login.html",
-                {"request": request, "error": "User not found"}
-            )
+            return HTMLResponse("No test user found in database")
 
-        # تجاوز التحقق من كلمة المرور
         request.session["uid"] = int(user["id"])
         return RedirectResponse("/dashboard", status_code=302)
 
