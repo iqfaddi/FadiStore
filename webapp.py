@@ -63,16 +63,16 @@ def create_app(bot_sender=None):
 
         user = db.get_user_by_id(uid)
 
+        # group packages by category for sections
+        pkgs = db.list_packages()
+        sections = {}
+        for p in pkgs:
+            cat = p.get("category", "General")
+            sections.setdefault(cat, []).append(p)
+
         return templates.TemplateResponse(
             "dashboard.html",
             {
-
-# group packages by category for sections
-pkgs = db.list_packages()
-sections = {}
-for p in pkgs:
-    cat = p.get("category","General")
-    sections.setdefault(cat, []).append(p)
                 "request": request,
                 "phone": user["phone"],
                 "balance": db.fmt_lbp(int(user["balance"])),
