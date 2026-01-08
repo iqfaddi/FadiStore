@@ -40,8 +40,8 @@ def create_app(bot_sender=None):
     # 🔥 دخول تلقائي للتجربة
     @app.get("/autologin")
     async def autologin(request: Request):
-        # اختر أي مستخدم موجود في القاعدة
-        user = db.get_user_by_phone("03177862")  # غيّر الرقم إذا لزم
+        # ضع رقم مستخدم موجود في قاعدة البيانات
+        user = db.get_user_by_phone("03177862")  # عدّل الرقم إذا لزم
         if not user:
             return HTMLResponse("No test user found in database")
 
@@ -104,3 +104,7 @@ def create_app(bot_sender=None):
         return {"status": "ok"}
 
     return app
+
+
+# ✅ هذا السطر هو المهم جداً لحل مشكلة Not Found على Render
+app = create_app()
