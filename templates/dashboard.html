@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Dashboard</title></head>
+<body>
+<h2>Welcome {{ phone }}</h2>
+<p>Balance: {{ balance }}</p>
+
+{% for category, items in sections.items() %}
+  <h3>{{ category }}</h3>
+  <table border="1" cellpadding="6">
+    <tr><th>Name</th><th>Type</th><th>Duration</th><th>Price</th><th>Buy</th></tr>
+    {% for p in items %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.account_type }}</td>
+      <td>{{ p.duration }}</td>
+      <td>{{ fmt(p.price) }}</td>
+      <td>
+        <form action="/buy" method="post">
+          <input type="hidden" name="package_id" value="{{ p.id }}">
+          <input type="text" name="user_number" placeholder="User" required>
+          <button type="submit">Buy</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endfor %}
+
+<h3>Your Orders</h3>
+<ul>
+{% for o in orders %}
+  <li>#{{ o.id }} - {{ o.package_name }} - {{ o.status }}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
