@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fadi Store</title>
-
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header><h1>Fadi Store</h1></header>
 
-<header class="topbar">
-  <div class="logo">Fadi Store</div>
-</header>
-
-<section class="hero">
-  <h1>Premium Digital Subscriptions</h1>
-  <p class="hero-desc">
-    Trusted digital services with fast delivery, secure transactions,
-    and professional customer support.
-  </p>
-
-  <div class="trust-icons">
-    <span>⚡ Fast Delivery</span>
-    <span>🔒 Secure</span>
-    <span>🛡️ Trusted</span>
-    <span>💬 Support</span>
-  </div>
-</section>
-
-<main class="container">
-  <div id="products"></div>
+<main>
+  <section class="services">
+    <h2>Select Service</h2>
+    <div id="servicesGrid" class="services-grid"></div>
+  </section>
 </main>
 
-<a class="wa-float" href="https://wa.me/9613177862" target="_blank">💬</a>
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span id="modalTitle">Service</span>
+      <button id="closeModal">✕</button>
+    </div>
 
-<footer class="site-footer">
-  <div class="footer-info">
-    <span>⚡ Fast Delivery</span>
-    <span>🔒 Secure</span>
-    <span>💬 Support</span>
+    <select id="planSelect"></select>
+
+    <div class="modal-footer">
+      <div class="price">Price: <span id="priceValue">0</span></div>
+      <div class="actions">
+        <button class="cancel" id="cancelBtn">Cancel</button>
+        <a id="buyBtn" class="buy" href="#" target="_blank">Buy</a>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="footer-copy">
-    © 2026 Fadi Store. All rights reserved.
-  </div>
-</footer>
-
+<footer><p>© Fadi Store. All rights reserved.</p></footer>
 <script src="script.js"></script>
 </body>
 </html>
