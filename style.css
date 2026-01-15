@@ -26,24 +26,24 @@ h2{text-align:center;margin:20px 0}
   box-shadow:0 10px 25px rgba(56,189,248,.25)
 }
 
-/* ===== SAFARI SAFE SQUARE ===== */
+/* square image container */
 .service-card .img-box{
-  position:relative;
   width:100%;
-  padding-top:100%; /* makes square */
+  aspect-ratio:1/1;
   border-radius:16px;
   overflow:hidden;
-  background:#020617;
+  background:#020617; /* same as card */
+  display:flex;
+  align-items:center;
+  justify-content:center;
   margin-bottom:10px;
 }
 
-.service-card .img-box img{
-  position:absolute;
-  top:0;
-  left:0;
+/* image fills the square */
+.service-card img{
   width:100%;
   height:100%;
-  object-fit:cover; /* fills square */
+  object-fit:cover; /* fill even if cropped */
 }
 
 .service-card span{
