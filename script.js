@@ -12,16 +12,18 @@ let servicesMap = {};
 let currentService = "";
 let currentPlan = "";
 
-// ================= FETCH =================
 async function loadProducts(){
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`,{
-    headers:{
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/products?select=*&order=id.asc`,
+    {
+      headers:{
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
     }
-  });
-  const products = await res.json();
+  );
 
+  const products = await res.json();
   servicesMap = {};
 
   products.forEach(p=>{
@@ -38,16 +40,17 @@ async function loadProducts(){
   renderServices();
 }
 
-// ================= RENDER CARDS =================
 function renderServices(){
   grid.innerHTML = "";
 
   Object.keys(servicesMap).forEach(service=>{
+    const first = servicesMap[service][0];
+
     const card = document.createElement("div");
     card.className = "service-card";
     card.innerHTML = `
       <div class="img-box">
-        <img src="${servicesMap[service][0].image}" alt="${service}">
+        <img src="${first.image}" alt="${service}">
       </div>
       <span>${service}</span>
     `;
@@ -56,28 +59,12 @@ function renderServices(){
   });
 }
 
-// ================= SORT =================
-function sortPlans(plans){
-  return plans.sort((a,b)=>{
-    const getNumber = txt=>{
-      const m = txt.match(/(\d+)/);
-      return m ? parseInt(m[1]) : 0;
-    };
-
-    const aNum = getNumber(a.label);
-    const bNum = getNumber(b.label);
-
-    return aNum - bNum;
-  });
-}
-
-// ================= MODAL =================
 function openModal(service){
   currentService = service;
   modalTitle.textContent = service;
   planSelect.innerHTML = "";
 
-  let plans = sortPlans([...servicesMap[service]]);
+  const plans = servicesMap[service]; // نفس ترتيب Supabase
 
   plans.forEach((p,i)=>{
     const opt = document.createElement("option");
@@ -92,7 +79,6 @@ function openModal(service){
   planSelect.onchange = e=>updatePrice(service,e.target.value);
 }
 
-// ================= PRICE =================
 function updatePrice(service,index){
   const p = servicesMap[service][index];
   currentPlan = p.label;
@@ -108,12 +94,10 @@ Price: ${p.price}`;
 `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
 }
 
-// ================= CLOSE =================
 document.getElementById("closeModal").onclick =
 ()=>modal.classList.add("hidden");
 
 document.getElementById("cancelBtn").onclick =
 ()=>modal.classList.add("hidden");
 
-// ================= START =================
 loadProducts();
