@@ -14,12 +14,12 @@ let currentPlan = "";
 
 // ===== SERVICE NAME =====
 function getService(p){
-  return p.name;
+  return p.name.trim();
 }
 
-// ===== LABEL FROM SUPABASE (NO AUTO TEXT) =====
+// ===== LABEL FROM DURATION =====
 function getLabel(p){
-  return p.plan_label;   // نعرض النص كما هو من Supabase
+  return p.duration.trim();   // نعرض كما هو من Supabase
 }
 
 // ===== SORT BY DURATION =====
@@ -36,6 +36,7 @@ function sortPlans(plans){
   });
 }
 
+// ===== LOAD PRODUCTS =====
 async function loadProducts(){
   const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`,{
     headers:{
@@ -44,6 +45,8 @@ async function loadProducts(){
     }
   });
   const products = await res.json();
+
+  servicesMap = {};   // reset
 
   products.forEach(p=>{
     const service = getService(p);
@@ -58,14 +61,18 @@ async function loadProducts(){
   renderServices();
 }
 
+// ===== RENDER SERVICES =====
 function renderServices(){
   grid.innerHTML = "";
+
   Object.keys(servicesMap).forEach(service=>{
+    const first = servicesMap[service][0];
+
     const card = document.createElement("div");
     card.className = "service-card";
     card.innerHTML = `
       <div class="img-box">
-        <img src="${servicesMap[service][0].image}" alt="${service}">
+        <img src="${first.image}" alt="${service}">
       </div>
       <span>${service}</span>
     `;
@@ -74,6 +81,7 @@ function renderServices(){
   });
 }
 
+// ===== MODAL =====
 function openModal(service){
   currentService = service;
   modalTitle.textContent = service;
@@ -99,8 +107,8 @@ function updatePrice(service,index){
   currentPlan = p.label;
   priceValue.textContent = p.price;
 
-  const msg = `Hello, I would like to order:%0A${currentService}%0ADuration: ${currentPlan}%0APrice: ${p.price} LBP`;
-  buyBtn.href = `https://wa.me/9613177862?text=${msg}`;
+  const msg = `Hello, I would like to order:%0A${currentService}%0ADuration: ${currentPlan}%0APrice: ${p.price}`;
+  buyBtn.href = `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
 }
 
 document.getElementById("closeModal").onclick = ()=>modal.classList.add("hidden");
