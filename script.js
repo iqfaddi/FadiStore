@@ -12,32 +12,60 @@ let servicesMap = {};
 let currentService = "";
 let currentPlan = "";
 
-// ===== SERVICE NAME =====
+// ===== SERVICE DETECT =====
 function getService(p){
+  const n = p.name.toLowerCase();
+  if(n.includes("alfa ushare")) return "Alfa Ushare";
+  if(n.includes("netflix")) return "Netflix";
+  if(n.includes("shahid")) return "Shahid";
+  if(n.includes("osn")) return "OSN";
   return p.name;
 }
 
-// ===== LABEL FROM SUPABASE (NO AUTO TEXT) =====
+// ===== ACCOUNT TYPE =====
+function getAccountType(p){
+  const n = p.name.toLowerCase();
+  if(n.includes("full")) return "Full Account";
+  return "1 User";
+}
+
+// ===== LABEL =====
 function getLabel(p){
-  // نعرض النص كما هو من Supabase
-  return p.plan_label;
+  if(p.name.toLowerCase().includes("alfa ushare")){
+    return p.duration; // 11 GB, 22 GB...
+  }
+  const type = getAccountType(p);
+  return `${type} - ${p.duration}`;
 }
 
-// ===== SORT BY DURATION (MONTHS/YEAR) =====
-function sortPlans(plans){
-  return plans.sort((a,b)=>{
-    const toMonths = t => {
-      const m = t.match(/(\d+)/);
-      if(!m) return 0;
-      const num = parseInt(m[1]);
-      if(t.toLowerCase().includes("year")) return num * 12;
-      return num;
-    };
-    return toMonths(a.label) - toMonths(b.label);
-  });
+// ===== ORDER FOR SHAHID =====
+function sortPlans(service, plans){
+  if(service === "Shahid"){
+    const order = [
+      "1 User - 1 Month",
+      "1 User - 3 Months",
+      "1 User - 1 Year",
+      "Full Account - 1 Month",
+      "Full Account - 3 Months",
+      "Full Account - 1 Year"
+    ];
+    return plans.sort((a,b)=> order.indexOf(a.label) - order.indexOf(b.label));
+  }
+
+  // ===== SORT ALFA USHARE BY GB ASC =====
+  if(service === "Alfa Ushare"){
+    return plans.sort((a,b)=>{
+      const getGB = v => {
+        const m = v.label.match(/(\d+)/);
+        return m ? parseInt(m[1]) : 0;
+      };
+      return getGB(a) - getGB(b);
+    });
+  }
+
+  return plans;
 }
 
-// ===== LOAD PRODUCTS =====
 async function loadProducts(){
   const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`,{
     headers:{
@@ -60,16 +88,13 @@ async function loadProducts(){
   renderServices();
 }
 
-// ===== RENDER SERVICES =====
 function renderServices(){
   grid.innerHTML = "";
   Object.keys(servicesMap).forEach(service=>{
     const card = document.createElement("div");
     card.className = "service-card";
     card.innerHTML = `
-      <div class="img-box">
-        <img src="${servicesMap[service][0].image}" alt="${service}">
-      </div>
+      <div class="img-box"><img src="${servicesMap[service][0].image}" alt="${service}"></div>
       <span>${service}</span>
     `;
     card.onclick = ()=>openModal(service);
@@ -77,14 +102,13 @@ function renderServices(){
   });
 }
 
-// ===== MODAL =====
 function openModal(service){
   currentService = service;
   modalTitle.textContent = service;
   planSelect.innerHTML = "";
 
   let plans = servicesMap[service];
-  plans = sortPlans(plans);
+  plans = sortPlans(service, plans);
 
   plans.forEach((p,i)=>{
     const opt = document.createElement("option");
