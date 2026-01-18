@@ -6,54 +6,61 @@
   <title>Fadi Store</title>
   <link rel="stylesheet" href="style.css">
 
-<!-- Open Graph -->
-<meta property="og:title" content="Fadi Store" />
-<meta property="og:description" content="Application Subscriptions" />
-<meta property="og:image" content="https://fadistore.store/preview.jpg" />
-<meta property="og:url" content="https://fadistore.store" />
-<meta property="og:type" content="website" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fadi Store" />
+  <meta property="og:description" content="Application Subscriptions" />
+  <meta property="og:image" content="https://fadistore.store/preview.jpg" />
+  <meta property="og:url" content="https://fadistore.store" />
+  <meta property="og:type" content="website" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Fadi Store" />
-<meta name="twitter:description" content="Application Subscriptions" />
-<meta name="twitter:image" content="https://fadistore.store/preview.jpg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fadi Store" />
+  <meta name="twitter:description" content="Application Subscriptions" />
+  <meta name="twitter:image" content="https://fadistore.store/preview.jpg" />
 
-<!-- Icons -->
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" type="image/png" href="icon.png">
-
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
 </head>
+
 <body>
-<header><h1>Fadi Store</h1></header>
+  <header>
+    <h1>Fadi Store</h1>
+  </header>
 
-<main>
-  <section class="services">
-    <h2>Select Service</h2>
-    <div id="servicesGrid" class="services-grid"></div>
-  </section>
-</main>
+  <main>
+    <section class="services">
+      <h2>Select Service</h2>
+      <div id="servicesGrid" class="services-grid"></div>
+    </section>
+  </main>
 
-<div id="modal" class="modal hidden">
-  <div class="modal-box">
-    <div class="modal-header">
-      <span id="modalTitle">Service</span>
-      <button id="closeModal">✕</button>
-    </div>
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="modalTitle">Service</span>
+        <button id="closeModal">✕</button>
+      </div>
 
-    <select id="planSelect"></select>
+      <select id="planSelect"></select>
 
-    <div class="modal-footer">
-      <div class="price">Price: <span id="priceValue">0</span></div>
-      <div class="actions">
-        <button class="cancel" id="cancelBtn">Cancel</button>
-        <a id="buyBtn" class="buy" href="#" target="_blank">Buy</a>
+      <div class="modal-footer">
+        <div class="price">Price: <span id="priceValue">0</span></div>
+        <div class="actions">
+          <button class="cancel" id="cancelBtn">Cancel</button>
+          <a id="buyBtn" class="buy" href="#" target="_blank">
+            Order on WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<footer><p>© Fadi Store. All rights reserved.</p></footer>
-<script src="script.js"></script>
+  <footer>
+    <p>© Fadi Store. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
