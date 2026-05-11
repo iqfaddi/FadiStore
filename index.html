@@ -6,6 +6,9 @@
 
   <title>Fadi Store | Maintenance</title>
 
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
 
     *{
@@ -16,141 +19,219 @@
 
     body{
       height:100vh;
-      overflow:hidden;
       display:flex;
       justify-content:center;
       align-items:center;
+      overflow:hidden;
+      font-family:'Poppins',sans-serif;
       background:
-      radial-gradient(circle at top left,#3b2a00 0%,transparent 35%),
-      radial-gradient(circle at bottom right,#5a3d00 0%,transparent 35%),
-      linear-gradient(135deg,#050505,#111111,#000000);
-      font-family:Arial,sans-serif;
+      radial-gradient(circle at top left,#4d3500 0%,transparent 30%),
+      radial-gradient(circle at bottom right,#3a2800 0%,transparent 30%),
+      linear-gradient(135deg,#050505,#0f0f0f,#000000);
       color:white;
       position:relative;
     }
 
-    /* Animated Glow */
-    .glow{
+    /* Animated Background Glow */
+
+    .glow1,
+    .glow2{
       position:absolute;
-      width:500px;
-      height:500px;
-      background:#facc15;
-      opacity:0.12;
       border-radius:50%;
-      filter:blur(140px);
-      animation:move 7s infinite alternate ease-in-out;
+      filter:blur(120px);
+      opacity:0.18;
+      animation:float 8s infinite alternate ease-in-out;
     }
 
-    @keyframes move{
+    .glow1{
+      width:450px;
+      height:450px;
+      background:#facc15;
+      top:-120px;
+      left:-100px;
+    }
+
+    .glow2{
+      width:350px;
+      height:350px;
+      background:#f59e0b;
+      bottom:-100px;
+      right:-80px;
+      animation-delay:2s;
+    }
+
+    @keyframes float{
       from{
-        transform:translate(-150px,-100px);
+        transform:translateY(-20px) translateX(-20px);
       }
 
       to{
-        transform:translate(150px,100px);
+        transform:translateY(30px) translateX(30px);
       }
     }
+
+    /* Main Card */
 
     .container{
       position:relative;
       z-index:2;
       width:90%;
-      max-width:720px;
-      padding:55px 40px;
+      max-width:760px;
+      padding:65px 50px;
       text-align:center;
-      border-radius:30px;
+      border-radius:35px;
+
       background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(12px);
+
       border:1px solid rgba(255,215,0,0.15);
-      box-shadow:0 0 50px rgba(255,215,0,0.12);
+
+      backdrop-filter:blur(16px);
+
+      box-shadow:
+      0 0 60px rgba(255,215,0,0.08),
+      inset 0 0 30px rgba(255,255,255,0.03);
     }
 
+    /* Luxury Logo */
+
     .logo{
-      width:120px;
-      height:120px;
+      width:140px;
+      height:140px;
       margin:auto;
-      margin-bottom:25px;
-      border-radius:30px;
-      background:linear-gradient(135deg,#facc15,#b8860b);
+      margin-bottom:30px;
+
+      border-radius:35px;
+
+      background:
+      linear-gradient(145deg,#ffd54a,#b8860b);
+
       display:flex;
       justify-content:center;
       align-items:center;
-      font-size:58px;
-      font-weight:bold;
-      color:#000;
-      box-shadow:0 0 35px rgba(250,204,21,0.35);
+
+      font-size:65px;
+      font-weight:700;
+      color:#111;
+
+      box-shadow:
+      0 0 40px rgba(250,204,21,0.35),
+      inset 0 0 15px rgba(255,255,255,0.25);
     }
 
     h1{
-      font-size:56px;
+      font-size:60px;
+      font-weight:700;
+      letter-spacing:6px;
       color:#facc15;
-      letter-spacing:4px;
       margin-bottom:12px;
+      text-shadow:0 0 18px rgba(250,204,21,0.35);
     }
 
     .subtitle{
-      color:#d1d5db;
-      font-size:16px;
-      letter-spacing:5px;
-      margin-bottom:40px;
+      font-size:14px;
+      letter-spacing:7px;
+      color:#bdbdbd;
+      margin-bottom:45px;
+    }
+
+    .divider{
+      width:90px;
+      height:3px;
+      background:#facc15;
+      margin:0 auto 35px;
+      border-radius:20px;
+      box-shadow:0 0 15px rgba(250,204,21,0.4);
     }
 
     .arabic{
       font-size:34px;
-      font-weight:bold;
+      font-weight:600;
       margin-bottom:18px;
+      color:#ffffff;
     }
 
     .english{
-      font-size:21px;
-      color:#d1d5db;
-      line-height:1.9;
-      margin-bottom:35px;
+      font-size:20px;
+      line-height:2;
+      color:#d6d6d6;
+      margin-bottom:40px;
     }
 
+    /* WhatsApp Button */
+
     .whatsapp{
-      display:inline-block;
-      padding:16px 34px;
-      border-radius:60px;
-      background:#25D366;
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+
+      padding:18px 38px;
+
+      border-radius:70px;
+
+      background:
+      linear-gradient(135deg,#25D366,#1faa52);
+
       color:white;
       text-decoration:none;
+
       font-size:18px;
-      font-weight:bold;
-      transition:0.3s;
-      box-shadow:0 0 30px rgba(37,211,102,0.35);
+      font-weight:600;
+
+      transition:0.35s ease;
+
+      box-shadow:
+      0 0 30px rgba(37,211,102,0.35);
     }
 
     .whatsapp:hover{
-      transform:scale(1.06);
-      background:#1ebe5d;
+      transform:translateY(-4px) scale(1.03);
+
+      box-shadow:
+      0 0 45px rgba(37,211,102,0.5);
     }
 
     .footer{
-      margin-top:40px;
-      color:#9ca3af;
-      font-size:14px;
-      letter-spacing:1px;
+      margin-top:45px;
+      color:#8f8f8f;
+      font-size:13px;
+      letter-spacing:2px;
     }
+
+    /* Mobile */
 
     @media(max-width:768px){
 
-      h1{
-        font-size:40px;
-      }
-
-      .arabic{
-        font-size:25px;
-      }
-
-      .english{
-        font-size:18px;
+      .container{
+        padding:50px 28px;
       }
 
       .logo{
-        width:100px;
-        height:100px;
-        font-size:45px;
+        width:110px;
+        height:110px;
+        font-size:52px;
+      }
+
+      h1{
+        font-size:40px;
+        letter-spacing:3px;
+      }
+
+      .subtitle{
+        font-size:11px;
+        letter-spacing:4px;
+      }
+
+      .arabic{
+        font-size:26px;
+      }
+
+      .english{
+        font-size:17px;
+      }
+
+      .whatsapp{
+        font-size:16px;
+        padding:16px 28px;
       }
 
     }
@@ -160,7 +241,8 @@
 
 <body>
 
-  <div class="glow"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
 
   <div class="container">
 
@@ -174,27 +256,31 @@
       APPLICATION SUBSCRIPTIONS
     </div>
 
+    <div class="divider"></div>
+
     <div class="arabic">
       🚧 الموقع تحت الصيانة
     </div>
 
     <div class="english">
-      We are currently improving the website
-      to provide you with a better experience.
+      We are currently upgrading the website
+      to provide you with a premium experience.
       <br><br>
       نعمل حالياً على تطوير الموقع
-      وسنعود قريباً بحلة جديدة 🚀
+      لنقدم لكم تجربة أفضل وأكثر احترافية ✨
     </div>
 
     <a
-      class="whatsapp"
       href="https://wa.me/9613177862"
       target="_blank"
+      class="whatsapp"
     >
-      WhatsApp: +9613177862
+      💬 WhatsApp Support
     </a>
 
     <div class="footer">
+      +961 3 177 862
+      <br><br>
       © Fadi Store — All Rights Reserved
     </div>
 
