@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تحت الصيانة</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fadi Store | Maintenance</title>
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -17,103 +19,165 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
       font-family:Arial,sans-serif;
       overflow:hidden;
+      position:relative;
+      background:#000;
       color:white;
     }
 
-    .bg{
+    /* Background Image */
+    body::before{
+      content:"";
       position:absolute;
-      width:600px;
-      height:600px;
-      background:#3b82f6;
-      filter:blur(180px);
-      opacity:0.25;
-      border-radius:50%;
-      animation:move 8s infinite alternate ease-in-out;
+      inset:0;
+      background:url("logo.jpg") center center/cover no-repeat;
+      filter:blur(4px) brightness(0.25);
+      transform:scale(1.05);
     }
 
-    @keyframes move{
-      from{
-        transform:translate(-100px,-100px);
-      }
-      to{
-        transform:translate(100px,80px);
-      }
+    /* Dark Overlay */
+    body::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.65);
     }
 
-    .card{
+    .container{
       position:relative;
       z-index:2;
       width:90%;
-      max-width:600px;
-      padding:50px 35px;
-      border-radius:25px;
-      background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,0.1);
+      max-width:700px;
       text-align:center;
-      box-shadow:0 8px 40px rgba(0,0,0,0.4);
+      padding:45px 35px;
+      border-radius:28px;
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,215,0,0.2);
+      box-shadow:0 0 40px rgba(255,215,0,0.15);
     }
 
-    .icon{
-      font-size:70px;
-      margin-bottom:20px;
-      animation:float 2s infinite ease-in-out;
-    }
-
-    @keyframes float{
-      0%,100%{
-        transform:translateY(0);
-      }
-      50%{
-        transform:translateY(-10px);
-      }
+    .logo{
+      width:220px;
+      margin-bottom:25px;
+      border-radius:18px;
+      box-shadow:0 0 30px rgba(255,215,0,0.2);
     }
 
     h1{
-      font-size:42px;
+      font-size:54px;
+      color:#facc15;
+      letter-spacing:3px;
+      margin-bottom:10px;
+    }
+
+    .sub{
+      color:#d1d5db;
+      font-size:16px;
+      letter-spacing:4px;
+      margin-bottom:35px;
+    }
+
+    .arabic{
+      font-size:34px;
+      font-weight:bold;
       margin-bottom:15px;
     }
 
-    p{
-      font-size:20px;
-      line-height:1.8;
+    .english{
+      font-size:21px;
       color:#d1d5db;
+      line-height:1.8;
+      margin-bottom:30px;
     }
 
-    .status{
-      margin-top:30px;
+    .whatsapp-btn{
       display:inline-block;
-      padding:12px 25px;
+      padding:16px 32px;
+      background:#25D366;
+      color:white;
+      text-decoration:none;
       border-radius:50px;
-      background:#2563eb;
-      font-size:15px;
+      font-size:18px;
+      font-weight:bold;
+      transition:0.3s;
+      box-shadow:0 0 25px rgba(37,211,102,0.35);
+    }
+
+    .whatsapp-btn:hover{
+      transform:scale(1.06);
+      background:#1ebe5d;
+    }
+
+    .footer{
+      margin-top:35px;
+      font-size:14px;
+      color:#9ca3af;
       letter-spacing:1px;
     }
+
+    @media(max-width:768px){
+
+      h1{
+        font-size:40px;
+      }
+
+      .arabic{
+        font-size:26px;
+      }
+
+      .english{
+        font-size:18px;
+      }
+
+      .logo{
+        width:170px;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
+  <div class="container">
 
-<div class="card">
-  <div class="icon">🚧</div>
+    <!-- ضع اسم الصورة هنا -->
+    <img src="logo.jpg" alt="Fadi Store Logo" class="logo">
 
-  <h1>الموقع تحت الصيانة</h1>
+    <h1>FADI STORE</h1>
 
-  <p>
-    نعمل حالياً على تحسين الموقع وتجهيز تجربة أفضل لكم.
-    <br>
-    سنعود قريباً 🚀
-  </p>
+    <div class="sub">
+      APPLICATION SUBSCRIPTIONS
+    </div>
 
-  <div class="status">
-    Maintenance Mode
+    <div class="arabic">
+      🚧 الموقع تحت الصيانة
+    </div>
+
+    <div class="english">
+      We are currently improving the website
+      to provide you with a better experience.
+      <br><br>
+      نعمل حالياً على تطوير الموقع
+      وسنعود قريباً بحلة جديدة 🚀
+    </div>
+
+    <a 
+      href="https://wa.me/9613177862"
+      target="_blank"
+      class="whatsapp-btn"
+    >
+      WhatsApp: +9613177862
+    </a>
+
+    <div class="footer">
+      © Fadi Store — All Rights Reserved
+    </div>
+
   </div>
-</div>
 
 </body>
 </html>
