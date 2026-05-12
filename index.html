@@ -3,285 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Fadi Store | Maintenance</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    body{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      overflow:hidden;
-      font-family:'Poppins',sans-serif;
-
-      background:
-      radial-gradient(circle at top left,#4d3500 0%,transparent 30%),
-      radial-gradient(circle at bottom right,#3a2800 0%,transparent 30%),
-      linear-gradient(135deg,#050505,#0f0f0f,#000000);
-
-      color:white;
-      position:relative;
-
-      padding:20px;
-    }
-
-    /* Background Glow */
-
-    .glow1,
-    .glow2{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(100px);
-      opacity:0.15;
-      z-index:0;
-      animation:float 8s infinite alternate ease-in-out;
-    }
-
-    .glow1{
-      width:260px;
-      height:260px;
-      background:#facc15;
-      top:-60px;
-      left:-60px;
-    }
-
-    .glow2{
-      width:220px;
-      height:220px;
-      background:#f59e0b;
-      bottom:-50px;
-      right:-50px;
-      animation-delay:2s;
-    }
-
-    @keyframes float{
-      from{
-        transform:translateY(-10px) translateX(-10px);
-      }
-
-      to{
-        transform:translateY(20px) translateX(20px);
-      }
-    }
-
-    /* Main Box */
-
-    .container{
-      position:relative;
-      z-index:2;
-
-      width:100%;
-      max-width:430px;
-
-      padding:38px 25px;
-
-      text-align:center;
-
-      border-radius:28px;
-
-      background:rgba(255,255,255,0.05);
-
-      border:1px solid rgba(255,215,0,0.15);
-
-      backdrop-filter:blur(14px);
-
-      box-shadow:
-      0 0 35px rgba(255,215,0,0.08),
-      inset 0 0 18px rgba(255,255,255,0.03);
-    }
-
-    /* Logo */
-
-    .logo{
-      width:95px;
-      height:95px;
-
-      margin:auto;
-      margin-bottom:22px;
-
-      border-radius:25px;
-
-      background:
-      linear-gradient(145deg,#ffd54a,#b8860b);
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      font-size:42px;
-      font-weight:700;
-
-      color:#111;
-
-      box-shadow:
-      0 0 25px rgba(250,204,21,0.3);
-    }
-
-    h1{
-      font-size:34px;
-      font-weight:700;
-      letter-spacing:3px;
-
-      color:#facc15;
-
-      margin-bottom:10px;
-
-      text-shadow:0 0 12px rgba(250,204,21,0.3);
-    }
-
-    .subtitle{
-      font-size:11px;
-      letter-spacing:4px;
-      color:#bdbdbd;
-
-      margin-bottom:28px;
-    }
-
-    .divider{
-      width:70px;
-      height:3px;
-
-      background:#facc15;
-
-      margin:auto;
-      margin-bottom:28px;
-
-      border-radius:20px;
-    }
-
-    .arabic{
-      font-size:24px;
-      font-weight:600;
-
-      margin-bottom:14px;
-    }
-
-    .english{
-      font-size:15px;
-      line-height:1.9;
-
-      color:#d6d6d6;
-
-      margin-bottom:30px;
-    }
-
-    /* WhatsApp Button */
-
-    .whatsapp{
-      width:100%;
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      gap:10px;
-
-      padding:16px 20px;
-
-      border-radius:60px;
-
-      background:
-      linear-gradient(135deg,#25D366,#1faa52);
-
-      color:white;
-      text-decoration:none;
-
-      font-size:16px;
-      font-weight:600;
-
-      transition:0.3s;
-
-      box-shadow:
-      0 0 25px rgba(37,211,102,0.3);
-    }
-
-    .whatsapp:active{
-      transform:scale(0.98);
-    }
-
-    .number{
-      margin-top:18px;
-
-      color:#bdbdbd;
-
-      font-size:15px;
-
-      letter-spacing:1px;
-    }
-
-    .footer{
-      margin-top:30px;
-
-      color:#7c7c7c;
-
-      font-size:11px;
-
-      letter-spacing:1px;
-
-      line-height:1.8;
-    }
-
-  </style>
+  <title>Fadi Store</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fadi Store" />
+  <meta property="og:description" content="Application Subscriptions" />
+  <meta property="og:image" content="https://fadistore.store/preview.jpg" />
+  <meta property="og:url" content="https://fadistore.store" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fadi Store" />
+  <meta name="twitter:description" content="Application Subscriptions" />
+  <meta name="twitter:image" content="https://fadistore.store/preview.jpg" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
 </head>
 
 <body>
 
-  <div class="glow1"></div>
-  <div class="glow2"></div>
+  <header>
+    <h1>Fadi Store</h1>
+  </header>
 
-  <div class="container">
+  <main>
+    <section class="services">
+      <h2>Select Service</h2>
+      <div id="servicesGrid" class="services-grid"></div>
+    </section>
+  </main>
 
-    <div class="logo">
-      F
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <span id="modalTitle">Service</span>
+        <button id="closeModal">✕</button>
+      </div>
+
+      <select id="planSelect"></select>
+
+      <div class="modal-footer">
+        <div class="price">
+          Price: <span id="priceValue">0</span>
+        </div>
+
+        <div class="actions">
+          <button class="cancel" id="cancelBtn">Cancel</button>
+
+          <a id="buyBtn" class="buy" href="#" target="_blank">
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
     </div>
-
-    <h1>FADI STORE</h1>
-
-    <div class="subtitle">
-      APPLICATION SUBSCRIPTIONS
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="arabic">
-      🚧 الموقع تحت الصيانة
-    </div>
-
-    <div class="english">
-      We are currently improving the website
-      to provide a better experience.
-      <br><br>
-      نعمل حالياً على تطوير الموقع
-       وسنعود قريباً بحلة جديدة  ✨
-    </div>
-
-    <a
-      href="https://wa.me/9613177862"
-      target="_blank"
-      class="whatsapp"
-    >
-      💬 Contact on WhatsApp
-    </a>
-
-    <div class="number">
-      +961 3 177 862
-    </div>
-
-    <div class="footer">
-      © Fadi Store — All Rights Reserved
-    </div>
-
   </div>
+
+  <footer>
+    <p>⚡ Fast Delivery &nbsp; 🔒 Secure &nbsp; 💬 Support</p>
+    <p>© Fadi Store. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
 
 </body>
 </html>
