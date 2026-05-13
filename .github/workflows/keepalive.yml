@@ -11,6 +11,6 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          curl -H "apikey: sb_publishable_TyktvjuEO4h4Qqs790RQMA_5hzlqEky" \
-               -H "Authorization: Bearer sb_publishable_TyktvjuEO4h4Qqs790RQMA_5hzlqEky" \
+          curl -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
+               -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
                "https://hcuorfjumfurcxrvvsmw.supabase.co/rest/v1/products?select=id"
