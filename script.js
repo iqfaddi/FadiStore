@@ -87,10 +87,14 @@ function updatePrice(service, index) {
   currentPlan = p.label;
   priceValue.textContent = p.price;
 
-  const msg = `Hello, I would like to order:
-${currentService}
-Duration: ${currentPlan}
-Price: ${p.price}`;
+  const msg = `Hello 👋
+I would like to order:
+
+📦 Product: ${currentService}
+⏳ Duration: ${currentPlan}
+💵 Price: ${p.price}
+
+Thank you.`;
 
   buyBtn.href = `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
 }
