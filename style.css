@@ -33,19 +33,30 @@ body{
 
 .hero h1{
   font-size:64px;
-  font-weight:800;
-  letter-spacing:.5px;
-  background:linear-gradient(90deg,#63e3ff,#19bfff,#3b82f6);
+  font-weight:900;
+  letter-spacing:.8px;
+  background:linear-gradient(
+    90deg,
+    #7ef9ff,
+    #38bdf8,
+    #0ea5e9,
+    #7ef9ff
+  );
+  background-size:300% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 30px rgba(56,189,248,.25);
+  text-shadow:
+    0 0 18px rgba(56,189,248,.30),
+    0 0 35px rgba(56,189,248,.18);
+  animation:glowMove 6s linear infinite;
 }
 
 .hero h2{
   margin-top:14px;
   font-size:28px;
   font-weight:600;
-  color:#edf4ff;
+  color:#eef6ff;
+  letter-spacing:.4px;
 }
 
 .hero p{
@@ -53,6 +64,15 @@ body{
   font-size:17px;
   color:#94a3b8;
   font-weight:500;
+}
+
+@keyframes glowMove{
+  0%{
+    background-position:0% center;
+  }
+  100%{
+    background-position:300% center;
+  }
 }
 
 /* SERVICES */
@@ -280,11 +300,11 @@ footer{
   }
 
   .hero h1{
-    font-size:44px;
+    font-size:46px;
   }
 
   .hero h2{
-    font-size:20px;
+    font-size:19px;
   }
 
   .hero p{
@@ -293,13 +313,17 @@ footer{
 
   .services-grid{
     grid-template-columns:repeat(2,1fr);
-    gap:16px;
-    padding:16px;
+    gap:12px;
+    padding:14px;
   }
 
   .service-card{
-    border-radius:20px;
-    padding:12px;
+    padding:10px;
+    border-radius:18px;
+  }
+
+  .service-card span{
+    font-size:13px;
   }
 
   .modal-box{
