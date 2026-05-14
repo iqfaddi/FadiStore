@@ -96,7 +96,9 @@ I would like to order:
 
 Thank you.`;
 
-  buyBtn.href = `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
+  buyBtn.onclick = () => {
+    window.location.href = `whatsapp://send?phone=9613177862&text=${encodeURIComponent(msg)}`;
+  };
 }
 
 document.getElementById("closeModal").onclick =
@@ -105,4 +107,4 @@ document.getElementById("closeModal").onclick =
 document.getElementById("cancelBtn").onclick =
   () => modal.classList.add("hidden");
 
-loadProducts(); 
+loadProducts();
