@@ -31,7 +31,9 @@ async function loadProducts() {
 
     if (!service) return;
 
-    if (!servicesMap[service]) servicesMap[service] = [];
+    if (!servicesMap[service]) {
+      servicesMap[service] = [];
+    }
 
     servicesMap[service].push({
       ...p,
@@ -50,6 +52,7 @@ function renderServices() {
 
     const card = document.createElement("div");
     card.className = "service-card";
+
     card.innerHTML = `
       <div class="img-box">
         <img src="${first.image}" alt="${service}">
@@ -58,6 +61,7 @@ function renderServices() {
     `;
 
     card.onclick = () => openModal(service);
+
     grid.appendChild(card);
   });
 }
@@ -79,11 +83,14 @@ function openModal(service) {
   updatePrice(service, 0);
   modal.classList.remove("hidden");
 
-  planSelect.onchange = (e) => updatePrice(service, e.target.value);
+  planSelect.onchange = (e) => {
+    updatePrice(service, e.target.value);
+  };
 }
 
 function updatePrice(service, index) {
   const p = servicesMap[service][index];
+
   currentPlan = p.label;
   priceValue.textContent = p.price;
 
@@ -96,15 +103,16 @@ I would like to order:
 
 Thank you.`;
 
-  buyBtn.onclick = () => {
-    window.location.href = `whatsapp://send?phone=9613177862&text=${encodeURIComponent(msg)}`;
-  };
+  buyBtn.onclick = null;
+  buyBtn.href = `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
 }
 
-document.getElementById("closeModal").onclick =
-  () => modal.classList.add("hidden");
+document.getElementById("closeModal").onclick = () => {
+  modal.classList.add("hidden");
+};
 
-document.getElementById("cancelBtn").onclick =
-  () => modal.classList.add("hidden");
+document.getElementById("cancelBtn").onclick = () => {
+  modal.classList.add("hidden");
+};
 
 loadProducts();
