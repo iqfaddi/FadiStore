@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://hcuorfjumfurcxrvvsmw.supabase.co";
-const SUPABASE_KEY = "YOUR_KEY";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjdW9yZmp1bWZ1cmN4cnZ2c213Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTM4OTYsImV4cCI6MjA5NDA4OTg5Nn0.9gGg0d7YTWyMhGlIE8KebDisRQi8V1jprLfXc3lT2jE";
 
 const grid = document.getElementById("servicesGrid");
 const modal = document.getElementById("modal");
@@ -28,6 +28,7 @@ async function loadProducts() {
 
   products.forEach((p) => {
     const service = p.name?.trim();
+
     if (!service) return;
 
     if (!servicesMap[service]) servicesMap[service] = [];
@@ -51,7 +52,7 @@ function renderServices() {
     card.className = "service-card";
     card.innerHTML = `
       <div class="img-box">
-        <img src="${first.image}" alt="${service}" loading="eager">
+        <img src="${first.image}" alt="${service}">
       </div>
       <span>${service}</span>
     `;
@@ -104,4 +105,4 @@ document.getElementById("closeModal").onclick =
 document.getElementById("cancelBtn").onclick =
   () => modal.classList.add("hidden");
 
-loadProducts();
+loadProducts(); 
