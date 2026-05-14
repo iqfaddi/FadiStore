@@ -52,7 +52,7 @@ function renderServices() {
     card.className = "service-card";
     card.innerHTML = `
       <div class="img-box">
-        <img src="${first.image}" alt="${service}">
+        <img src="${first.image}" alt="${service}" loading="lazy" decoding="async">
       </div>
       <span>${service}</span>
     `;
