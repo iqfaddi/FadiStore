@@ -1,62 +1,107 @@
 *{
   box-sizing:border-box;
-  font-family:system-ui,Arial
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 body{
-  margin:0;
-  background:#0f172a;
-  color:#fff
+  min-height:100vh;
+  background:radial-gradient(circle at top, #15233f 0%, #0b1220 45%, #060c18 100%);
+  color:#fff;
+  position:relative;
+  overflow-x:hidden;
 }
 
-header{
+/* BACKGROUND GLOW */
+.bg-glow{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at top center, rgba(0,180,255,.15), transparent 35%),
+    radial-gradient(circle at center, rgba(56,189,248,.05), transparent 50%);
+  z-index:0;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  z-index:2;
   text-align:center;
-  padding:20px
+  padding:48px 20px 28px;
 }
 
-header h1{
-  margin:0;
-  color:#38bdf8
+.hero h1{
+  font-size:64px;
+  font-weight:800;
+  letter-spacing:.5px;
+  background:linear-gradient(90deg,#66e3ff,#0ea5e9,#3b82f6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 30px rgba(56,189,248,.22);
 }
 
-h2{
-  text-align:center;
-  margin:20px 0
+.hero h2{
+  margin-top:14px;
+  font-size:28px;
+  font-weight:600;
+  color:#edf6ff;
 }
 
-/* ===== SERVICES GRID ===== */
+.hero p{
+  margin-top:10px;
+  font-size:17px;
+  color:#94a3b8;
+  font-weight:500;
+}
+
+/* SERVICES */
+.services{
+  position:relative;
+  z-index:2;
+}
+
 .services-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:20px;
-  padding:0 20px 40px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:22px;
+  padding:20px;
+  max-width:950px;
+  margin:auto;
 }
 
 .service-card{
-  background:#020617;
-  border-radius:18px;
-  padding:12px;
+  background:rgba(8,15,30,.85);
+  backdrop-filter:blur(18px);
+  border-radius:24px;
+  padding:14px;
   text-align:center;
   cursor:pointer;
-  border:1px solid rgba(56,189,248,.2);
-  transition:.25s;
+  border:1px solid rgba(56,189,248,.15);
+  transition:.25s ease;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .service-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 25px rgba(56,189,248,.25)
+  transform:translateY(-6px);
+  box-shadow:
+    0 18px 40px rgba(56,189,248,.18),
+    0 10px 30px rgba(0,0,0,.35);
 }
 
 .service-card .img-box{
   width:100%;
   aspect-ratio:1/1;
-  border-radius:16px;
+  border-radius:18px;
   overflow:hidden;
   background:#020617;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .service-card img{
@@ -67,138 +112,167 @@ h2{
 
 .service-card span{
   display:block;
-  margin-top:6px;
   font-size:14px;
-  font-weight:500;
-  color:#e5e7eb;
+  font-weight:600;
+  color:#f8fbff;
 }
 
-/* ===== MODAL ===== */
+/* MODAL */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.72);
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:999
+  z-index:999;
 }
 
-.hidden{display:none}
+.hidden{
+  display:none;
+}
 
 .modal-box{
-  background:#020617;
+  background:rgba(8,15,30,.96);
+  backdrop-filter:blur(20px);
   width:90%;
-  max-width:360px;
-  border-radius:22px;
-  padding:16px;
-  border:1px solid rgba(56,189,248,.25)
+  max-width:390px;
+  border-radius:24px;
+  padding:18px;
+  border:1px solid rgba(56,189,248,.15);
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:14px
+  margin-bottom:16px;
 }
 
 .modal-header span{
   color:#38bdf8;
-  font-weight:600;
-  font-size:16px
+  font-weight:700;
+  font-size:17px;
 }
 
 .modal-header button{
   background:none;
   border:none;
   color:#fff;
-  font-size:18px;
-  cursor:pointer
+  font-size:20px;
+  cursor:pointer;
 }
 
 select{
   width:100%;
-  padding:11px 12px;
-  border-radius:14px;
-  border:1px solid rgba(56,189,248,.3);
-  background:#020617;
+  padding:13px;
+  border-radius:16px;
+  border:1px solid rgba(56,189,248,.18);
+  background:#0b1220;
   color:#fff;
-  margin-bottom:18px;
-  font-size:14px
+  margin-bottom:20px;
+  font-size:14px;
+  outline:none;
 }
 
-/* ===== FOOTER INSIDE MODAL ===== */
 .modal-footer{
   display:flex;
   flex-direction:column;
-  gap:12px
+  gap:14px;
 }
 
 .price{
   font-weight:600;
-  font-size:14px;
-  color:#e5e7eb
+  font-size:15px;
+  color:#e5e7eb;
 }
 
 .actions{
   display:flex;
   gap:10px;
-  width:100%;
 }
 
 .actions .cancel{
   flex:1;
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,.06);
   color:#e5e7eb;
-  border:1px solid rgba(255,255,255,0.15);
-  padding:10px 0;
-  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  padding:12px 0;
+  border-radius:16px;
   font-size:14px;
-  font-weight:500;
+  font-weight:600;
+  cursor:pointer;
 }
 
 .actions .buy{
   flex:2;
   background:linear-gradient(135deg,#38bdf8,#0ea5e9);
-  color:#020617;
+  color:#04111d;
   text-decoration:none;
   padding:12px 0;
-  border-radius:14px;
+  border-radius:16px;
   font-size:15px;
-  font-weight:700;
+  font-weight:800;
   text-align:center;
-  box-shadow:0 8px 20px rgba(56,189,248,.35);
+  box-shadow:0 10px 25px rgba(56,189,248,.28);
 }
 
 .actions .buy:active{
-  transform:scale(.97)
+  transform:scale(.98);
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 footer{
+  position:relative;
+  z-index:2;
   text-align:center;
-  padding:20px;
+  padding:28px 20px;
   font-size:12px;
-  color:#94a3b8
+  color:#94a3b8;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width:480px){
+/* MOBILE */
+@media (max-width:768px){
+
+  .hero{
+    padding:34px 16px 18px;
+  }
+
+  .hero h1{
+    font-size:46px;
+  }
+
+  .hero h2{
+    font-size:20px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .services-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    padding:16px;
+  }
+
+  .service-card{
+    border-radius:20px;
+    padding:12px;
+  }
 
   .modal-box{
     width:94%;
-    padding:14px
+    padding:15px;
   }
 
-  .modal-header span{
-    font-size:15px
+  .actions{
+    flex-direction:column;
   }
 
-  select{
-    font-size:14px
-  }
-
-  .price{
-    font-size:14px
+  .actions .buy,
+  .actions .cancel{
+    width:100%;
   }
 }
