@@ -27,15 +27,17 @@ h2{
 /* ===== SERVICES GRID ===== */
 .services-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:20px;
-  padding:0 20px 40px;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  padding:0 16px 40px;
+  max-width:700px;
+  margin:auto;
 }
 
 .service-card{
   background:#020617;
   border-radius:18px;
-  padding:12px;
+  padding:10px;
   text-align:center;
   cursor:pointer;
   border:1px solid rgba(56,189,248,.2);
@@ -68,7 +70,7 @@ h2{
 .service-card span{
   display:block;
   margin-top:6px;
-  font-size:14px;
+  font-size:12px;
   font-weight:500;
   color:#e5e7eb;
 }
@@ -84,7 +86,9 @@ h2{
   z-index:999
 }
 
-.hidden{display:none}
+.hidden{
+  display:none
+}
 
 .modal-box{
   background:#020617;
@@ -183,7 +187,22 @@ footer{
 }
 
 /* ===== MOBILE ===== */
-@media (max-width:480px){
+@media (max-width:768px){
+
+  .services-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    padding:0 12px 35px;
+  }
+
+  .service-card{
+    padding:8px;
+    border-radius:16px;
+  }
+
+  .service-card span{
+    font-size:11px;
+  }
 
   .modal-box{
     width:94%;
