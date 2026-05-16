@@ -3,10 +3,37 @@
   font-family:system-ui,Arial
 }
 
-body{
+html, body{
   margin:0;
-  background:#0f172a;
-  color:#fff
+  padding:0;
+  min-height:100%;
+  width:100%;
+  color:#fff;
+  background:#000814;
+}
+
+body{
+  position:relative;
+  z-index:1;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:url("background.jpg") center center / cover no-repeat;
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,8,20,0.45);
+  z-index:-1;
 }
 
 header{
@@ -35,7 +62,9 @@ h2{
 }
 
 .service-card{
-  background:#020617;
+  background:rgba(2,6,23,0.78);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
   border-radius:18px;
   padding:10px;
   text-align:center;
@@ -91,7 +120,9 @@ h2{
 }
 
 .modal-box{
-  background:#020617;
+  background:rgba(2,6,23,0.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   width:90%;
   max-width:360px;
   border-radius:22px;
@@ -183,7 +214,7 @@ footer{
   text-align:center;
   padding:20px;
   font-size:12px;
-  color:#94a3b8
+  color:#cbd5e1
 }
 
 /* ===== MOBILE ===== */
