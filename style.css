@@ -218,7 +218,7 @@ footer{
 @media (max-width:768px){
 
   body::before{
-    background:url("background.jpg") center -70px / cover no-repeat;
+    background:url("background.jpg") center -80px / cover no-repeat;
     opacity:0.46;
   }
 
