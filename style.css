@@ -21,7 +21,7 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:url("background.jpg") center top / cover no-repeat;
+  background:url("background.jpg") center -180px / cover no-repeat;
   opacity:0.42;
   z-index:-2;
 }
@@ -101,8 +101,8 @@ h2{
 .service-card span{
   display:block;
   margin-top:6px;
-  font-size:12px;
-  font-weight:500;
+  font-size:14px; /* كبرنا أسماء المنتجات */
+  font-weight:600;
   color:#e5e7eb;
   text-shadow:0 0 10px rgba(0,0,0,.9);
 }
@@ -217,6 +217,11 @@ footer{
 /* MOBILE */
 @media (max-width:768px){
 
+  body::before{
+    background:url("background.jpg") center -160px / cover no-repeat;
+    opacity:0.46;
+  }
+
   header{
     padding:36px 20px 8px;
   }
@@ -242,7 +247,7 @@ footer{
   }
 
   .service-card span{
-    font-size:11px;
+    font-size:13px;
   }
 
   .modal-box{
