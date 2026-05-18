@@ -7,17 +7,15 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Fadi Store" />
-  <meta property="og:description" content="Premium Digital Memberships" />
+  <meta property="og:description" content="Premium Digital Subscriptions" />
   <meta property="og:image" content="https://fadistore.store/preview-share.png" />
   <meta property="og:url" content="https://fadistore.store" />
   <meta property="og:type" content="website" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fadi Store" />
-  <meta name="twitter:description" content="Premium Digital Memberships" />
+  <meta name="twitter:description" content="Premium Digital Subscriptions" />
   <meta name="twitter:image" content="https://fadistore.store/preview-share.png" />
 
   <link rel="apple-touch-icon" href="icon.png" />
@@ -28,48 +26,144 @@
 
   <!-- HERO -->
   <header class="hero">
-    <div class="hero-overlay"></div>
 
-    <div class="hero-content">
-      <p class="hero-badge">PREMIUM DIGITAL STORE</p>
-      <h1>Fadi Store</h1>
-      <p class="hero-subtitle">
-        Fast delivery. Trusted service. Premium subscriptions.
-      </p>
+    <div class="hero-top">
+      <div class="brand">
+        <div class="brand-icon">F</div>
+        <div>
+          <h1>FADI STORE</h1>
+          <p>PREMIUM DIGITAL SUBSCRIPTIONS</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+
+      <div class="hero-left">
+        <h2>
+          Premium Subscriptions.<br>
+          <span>Unbeatable Prices.</span>
+        </h2>
+
+        <p class="hero-desc">
+          Instant delivery • Premium support • Trusted service
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#services" class="gold-btn">Browse All Services</a>
+          <a href="https://wa.me/9613177862" target="_blank" class="dark-btn">
+            Contact Us
+          </a>
+        </div>
+
+        <div class="trust-mini">
+          ⭐ Trusted by premium customers
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-circle"></div>
+        <div class="hero-logo">F</div>
+      </div>
+
     </div>
   </header>
 
+  <!-- TRUST BAR -->
+  <section class="trust-bar">
+    <div class="trust-item">
+      <span>⚡</span>
+      <div>
+        <strong>Instant Delivery</strong>
+        <p>1–5 Minutes</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span>🛡️</span>
+      <div>
+        <strong>Secure & Safe</strong>
+        <p>Protected</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span>🎧</span>
+      <div>
+        <strong>24/7 Support</strong>
+        <p>Always Here</p>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span>💎</span>
+      <div>
+        <strong>Best Prices</strong>
+        <p>Premium Offers</p>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
   <main>
-    <section class="services-section">
-      <div class="section-head">
-        <h2>Choose Your Service</h2>
-        <p>Select your premium membership instantly</p>
+
+    <section id="services" class="services-section">
+
+      <div class="section-title">
+        <span></span>
+        <h3>SELECT SERVICE</h3>
+        <span></span>
       </div>
 
       <div id="servicesGrid" class="services-grid"></div>
+
     </section>
 
-    <!-- TRUST -->
-    <section class="trust-section">
-      <div class="trust-card">
-        <span>⚡</span>
-        <h3>Fast Delivery</h3>
-        <p>Instant response and quick order handling.</p>
+    <!-- HOW IT WORKS -->
+    <section class="how-section">
+
+      <div class="section-title">
+        <span></span>
+        <h3>HOW IT WORKS</h3>
+        <span></span>
       </div>
 
-      <div class="trust-card">
-        <span>🔒</span>
-        <h3>Trusted Service</h3>
-        <p>Reliable premium digital subscriptions.</p>
+      <div class="how-grid">
+
+        <div class="how-card">
+          <div class="how-icon">🛍️</div>
+          <h4>Choose Service</h4>
+          <p>Select your subscription</p>
+        </div>
+
+        <div class="how-card">
+          <div class="how-icon">📋</div>
+          <h4>Pick a Plan</h4>
+          <p>Choose what suits you</p>
+        </div>
+
+        <div class="how-card">
+          <div class="how-icon">⚡</div>
+          <h4>Get It Fast</h4>
+          <p>Instant delivery via WhatsApp</p>
+        </div>
+
       </div>
 
-      <div class="trust-card">
-        <span>💬</span>
-        <h3>WhatsApp Support</h3>
-        <p>Order directly with one tap anytime.</p>
-      </div>
     </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <a href="https://wa.me/9613177862" target="_blank" class="cta-box">
+        <div>
+          <strong>CONTINUE ON WHATSAPP</strong>
+          <p>We will guide you to complete your order</p>
+        </div>
+
+        <div class="cta-arrow">→</div>
+      </a>
+    </section>
+
   </main>
 
   <!-- MODAL -->
@@ -78,7 +172,7 @@
 
       <div class="modal-header">
         <div>
-          <p class="modal-mini">PREMIUM MEMBERSHIP</p>
+          <p>PREMIUM MEMBERSHIP</p>
           <h3 id="modalTitle">Service</h3>
         </div>
 
@@ -89,13 +183,12 @@
 
       <div class="modal-footer">
         <div class="price-box">
-          <span>Total Price</span>
+          <span>Total</span>
           <strong id="priceValue">$0</strong>
         </div>
 
         <div class="actions">
-          <button class="cancel" id="cancelBtn">Cancel</button>
-
+          <button id="cancelBtn" class="cancel">Cancel</button>
           <a id="buyBtn" class="buy" href="#" target="_blank">
             Order on WhatsApp
           </a>
@@ -105,11 +198,11 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    <p>© Fadi Store — Premium Digital Memberships</p>
+    <p>© Fadi Store. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
+
 </body>
 </html>
