@@ -3,128 +3,82 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const grid = document.getElementById("servicesGrid");
 const modal = document.getElementById("modal");
-const modalTitle = document.getElementById("modalTitle");
-const planSelect = document.getElementById("planSelect");
-const priceValue = document.getElementById("priceValue");
-const buyBtn = document.getElementById("buyBtn");
+const title = document.getElementById("modalTitle");
+const select = document.getElementById("planSelect");
+const price = document.getElementById("priceValue");
+const buy = document.getElementById("buyBtn");
 
-let servicesMap = {};
-let currentService = "";
-let currentPlan = "";
+let dataMap = {};
+let current = "";
 
-async function loadProducts() {
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?select=*&order=id.asc`,
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
-        }
-      }
-    );
+async function load(){
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`,{
+    headers:{
+      apikey:SUPABASE_KEY,
+      Authorization:`Bearer ${SUPABASE_KEY}`
+    }
+  });
 
-    const products = await res.json();
-    servicesMap = {};
+  const data = await res.json();
 
-    products.forEach((p) => {
-      const service = p.name?.trim();
+  dataMap = {};
 
-      if (!service) return;
+  data.forEach(p=>{
+    if(!dataMap[p.name]) dataMap[p.name]=[];
+    dataMap[p.name].push(p);
+  });
 
-      if (!servicesMap[service]) {
-        servicesMap[service] = [];
-      }
-
-      servicesMap[service].push({
-        ...p,
-        label: p.duration?.trim() || "",
-        price: p.price || "N/A"
-      });
-    });
-
-    renderServices();
-
-  } catch (err) {
-    console.error("Failed loading products:", err);
-  }
+  render();
 }
 
-function renderServices() {
-  grid.innerHTML = "";
+function render(){
+  grid.innerHTML="";
 
-  Object.keys(servicesMap).forEach((service) => {
-    const first = servicesMap[service][0];
+  Object.keys(dataMap).forEach(name=>{
+    const first = dataMap[name][0];
 
-    const card = document.createElement("div");
-    card.className = "service-card";
+    const div = document.createElement("div");
+    div.className="card";
 
-    card.innerHTML = `
-      <div class="img-box">
-        <img src="${first.image}" alt="${service}">
-      </div>
-
-      <span>${service}</span>
+    div.innerHTML=`
+      <img src="${first.image}">
+      <h4>${name}</h4>
     `;
 
-    card.onclick = () => openModal(service);
+    div.onclick=()=>open(name);
 
-    grid.appendChild(card);
+    grid.appendChild(div);
   });
 }
 
-function openModal(service) {
-  currentService = service;
-  modalTitle.textContent = service;
-  planSelect.innerHTML = "";
-
-  const plans = servicesMap[service];
-
-  plans.forEach((p, i) => {
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = `${p.label} — ${p.price}`;
-    planSelect.appendChild(opt);
-  });
-
-  updatePrice(service, 0);
+function open(name){
+  current=name;
   modal.classList.remove("hidden");
 
-  planSelect.onchange = (e) => {
-    updatePrice(service, e.target.value);
-  };
+  select.innerHTML="";
+
+  dataMap[name].forEach((p,i)=>{
+    const opt=document.createElement("option");
+    opt.value=i;
+    opt.textContent=p.duration;
+    select.appendChild(opt);
+  });
+
+  update(0);
+
+  select.onchange=e=>update(e.target.value);
 }
 
-function updatePrice(service, index) {
-  const p = servicesMap[service][index];
+function update(i){
+  const p=dataMap[current][i];
 
-  currentPlan = p.label;
-  priceValue.textContent = p.price;
+  price.textContent=p.price;
 
-  const msg = `Hello 👋
-I would like to order:
-
-📦 Product: ${currentService}
-⏳ Duration: ${currentPlan}
-💵 Price: ${p.price}
-
-Thank you.`;
-
-  buyBtn.href = `https://wa.me/9613177862?text=${encodeURIComponent(msg)}`;
+  buy.href=`https://wa.me/9613177862?text=Order ${current} ${p.duration} ${p.price}`;
 }
 
-document.getElementById("closeModal").onclick = () => {
+document.getElementById("cancelBtn").onclick=()=>{
   modal.classList.add("hidden");
 };
 
-document.getElementById("cancelBtn").onclick = () => {
-  modal.classList.add("hidden");
-};
-
-window.onclick = (e) => {
-  if (e.target === modal) {
-    modal.classList.add("hidden");
-  }
-};
-
-loadProducts();
+load();
