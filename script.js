@@ -4,14 +4,13 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const grid = document.getElementById("servicesGrid");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
-const plansContainer = document.getElementById("plansContainer");
+const planSelect = document.getElementById("planSelect");
 const priceValue = document.getElementById("priceValue");
 const buyBtn = document.getElementById("buyBtn");
 
 let servicesMap = {};
 let currentService = "";
 let currentPlan = "";
-let currentPrice = "";
 
 async function loadProducts() {
   try {
@@ -30,6 +29,7 @@ async function loadProducts() {
 
     products.forEach((p) => {
       const service = p.name?.trim();
+
       if (!service) return;
 
       if (!servicesMap[service]) {
@@ -38,7 +38,8 @@ async function loadProducts() {
 
       servicesMap[service].push({
         ...p,
-        label: p.duration?.trim() || ""
+        label: p.duration?.trim() || "",
+        price: p.price || "N/A"
       });
     });
 
@@ -62,6 +63,7 @@ function renderServices() {
       <div class="img-box">
         <img src="${first.image}" alt="${service}">
       </div>
+
       <span>${service}</span>
     `;
 
@@ -74,51 +76,37 @@ function renderServices() {
 function openModal(service) {
   currentService = service;
   modalTitle.textContent = service;
-  plansContainer.innerHTML = "";
+  planSelect.innerHTML = "";
 
   const plans = servicesMap[service];
 
-  plans.forEach((plan, index) => {
-    const planCard = document.createElement("div");
-    planCard.className = "plan-option";
-
-    planCard.innerHTML = `
-      <div class="plan-title">${plan.label}</div>
-      <div class="plan-price">$${plan.price}</div>
-    `;
-
-    planCard.onclick = () => {
-      document.querySelectorAll(".plan-option").forEach(el => {
-        el.classList.remove("active");
-      });
-
-      planCard.classList.add("active");
-      selectPlan(plan);
-    };
-
-    if (index === 0) {
-      planCard.classList.add("active");
-      selectPlan(plan);
-    }
-
-    plansContainer.appendChild(planCard);
+  plans.forEach((p, i) => {
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = `${p.label} — ${p.price}`;
+    planSelect.appendChild(opt);
   });
 
+  updatePrice(service, 0);
   modal.classList.remove("hidden");
+
+  planSelect.onchange = (e) => {
+    updatePrice(service, e.target.value);
+  };
 }
 
-function selectPlan(plan) {
-  currentPlan = plan.label;
-  currentPrice = plan.price;
+function updatePrice(service, index) {
+  const p = servicesMap[service][index];
 
-  priceValue.textContent = `$${plan.price}`;
+  currentPlan = p.label;
+  priceValue.textContent = p.price;
 
   const msg = `Hello 👋
 I would like to order:
 
 📦 Product: ${currentService}
 ⏳ Duration: ${currentPlan}
-💵 Price: ${currentPrice}
+💵 Price: ${p.price}
 
 Thank you.`;
 
@@ -133,7 +121,7 @@ document.getElementById("cancelBtn").onclick = () => {
   modal.classList.add("hidden");
 };
 
-modal.onclick = (e) => {
+window.onclick = (e) => {
   if (e.target === modal) {
     modal.classList.add("hidden");
   }
