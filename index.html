@@ -4,185 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fadi Store</title>
-
   <link rel="stylesheet" href="style.css">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Fadi Store" />
-  <meta property="og:description" content="Premium Subscription Services" />
-  <meta property="og:image" content="https://fadistore.store/preview-share.png" />
-  <meta property="og:url" content="https://fadistore.store" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fadi Store" />
-  <meta name="twitter:description" content="Premium Subscription Services" />
-  <meta name="twitter:image" content="https://fadistore.store/preview-share.png" />
-
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="icon" type="image/png" href="icon.png">
 </head>
 
 <body>
 
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
+<header class="topbar">
+  <div class="logo">Fadi Store</div>
+  <a class="btn" href="https://wa.me/9613177862" target="_blank">Contact</a>
+</header>
 
-  <header class="hero">
+<section class="hero">
+  <h1>Premium Subscriptions</h1>
+  <p>Fast delivery • Secure • Best prices</p>
 
-    <nav class="topbar">
-      <div class="brand">Fadi Store</div>
-      <a href="https://wa.me/9613177862" target="_blank" class="nav-btn">
-        Contact
-      </a>
-    </nav>
-
-    <div class="hero-content">
-
-      <div class="hero-left">
-        <span class="badge">PREMIUM DIGITAL STORE</span>
-
-        <h1>
-          Premium Subscriptions <br>
-          At Unbeatable Prices
-        </h1>
-
-        <p>
-          Access your favorite streaming and premium services instantly
-          with secure ordering, fast delivery, and 24/7 support.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#products" class="primary-btn">Browse Services</a>
-          <a href="https://wa.me/9613177862" target="_blank" class="secondary-btn">
-            WhatsApp
-          </a>
-        </div>
-
-        <div class="trust-row">
-          <div class="trust-box">
-            <strong>200+</strong>
-            <span>Happy Customers</span>
-          </div>
-
-          <div class="trust-box">
-            <strong>4.9★</strong>
-            <span>Customer Rating</span>
-          </div>
-
-          <div class="trust-box">
-            <strong>24/7</strong>
-            <span>Support</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="preview-card large">
-          <span>Premium Access</span>
-          <strong>Netflix • Shahid • Spotify</strong>
-        </div>
-
-        <div class="preview-grid">
-          <div class="preview-card">Fast Delivery</div>
-          <div class="preview-card">Secure Payment</div>
-          <div class="preview-card">Best Prices</div>
-          <div class="preview-card">Instant Setup</div>
-        </div>
-      </div>
-
-    </div>
-  </header>
-
-  <section class="features">
-    <div class="feature-card">⚡ Instant Delivery</div>
-    <div class="feature-card">🔒 Secure Orders</div>
-    <div class="feature-card">💬 24/7 Support</div>
-    <div class="feature-card">🏆 Premium Quality</div>
-  </section>
-
-  <main>
-    <section id="products" class="services">
-      <div class="section-head">
-        <span>OUR SERVICES</span>
-        <h2>Choose Your Subscription</h2>
-      </div>
-
-      <div id="servicesGrid" class="services-grid"></div>
-    </section>
-
-    <section class="how-it-works">
-      <div class="section-head">
-        <span>HOW IT WORKS</span>
-        <h2>Quick & Easy Ordering</h2>
-      </div>
-
-      <div class="steps">
-        <div class="step-card">
-          <div class="step-number">01</div>
-          <h3>Select Service</h3>
-          <p>Choose your favorite subscription plan.</p>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">02</div>
-          <h3>Choose Duration</h3>
-          <p>Select the plan that fits your needs.</p>
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">03</div>
-          <h3>Order on WhatsApp</h3>
-          <p>Complete your order instantly with support.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-banner">
-      <div>
-        <h2>Need Help Choosing?</h2>
-        <p>Message us directly on WhatsApp for instant assistance.</p>
-      </div>
-
-      <a href="https://wa.me/9613177862" target="_blank" class="primary-btn">
-        Contact on WhatsApp
-      </a>
-    </section>
-  </main>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-box">
-
-      <div class="modal-header">
-        <span id="modalTitle">Service</span>
-        <button id="closeModal">✕</button>
-      </div>
-
-      <select id="planSelect"></select>
-
-      <div class="modal-footer">
-        <div class="price">
-          Price: <span id="priceValue">0</span>
-        </div>
-
-        <div class="actions">
-          <button class="cancel" id="cancelBtn">Cancel</button>
-
-          <a id="buyBtn" class="buy" href="#" target="_blank">
-            Order Now
-          </a>
-        </div>
-      </div>
-
-    </div>
+  <div class="cta">
+    <a href="#services" class="primary">Browse Services</a>
+    <a href="https://wa.me/9613177862" class="secondary">WhatsApp</a>
   </div>
 
-  <footer>
-    <p>© Fadi Store — Premium Digital Subscription Services</p>
-  </footer>
+  <div class="stats">
+    <div>10K+ Customers</div>
+    <div>4.9 Rating</div>
+    <div>24/7 Support</div>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<section id="services">
+  <h2>Services</h2>
+  <div id="servicesGrid" class="grid"></div>
+</section>
 
+<div id="modal" class="modal hidden">
+  <div class="box">
+    <h3 id="modalTitle"></h3>
+
+    <select id="planSelect"></select>
+
+    <div class="price">Price: <span id="priceValue"></span></div>
+
+    <div class="actions">
+      <button id="cancelBtn">Cancel</button>
+      <a id="buyBtn" target="_blank">Order</a>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
