@@ -6,25 +6,25 @@
 <title>Fadi Store</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="topbar">
+<div class="bg"></div>
+
+<header class="nav">
   <div class="logo">FADI STORE</div>
-  <a href="https://wa.me/9613177862" class="btn">Contact</a>
+  <a class="btn" href="https://wa.me/9613177862">Contact</a>
 </header>
 
 <section class="hero">
 
-  <div class="badge">PREMIUM SUBSCRIPTIONS</div>
+  <div class="badge">PREMIUM DIGITAL STORE</div>
 
-  <h1>
-    Premium Subscriptions<br>
-    <span>Unbeatable Prices</span>
-  </h1>
+  <h1>Premium Subscriptions.<br><span>Unbeatable Prices</span></h1>
 
   <p>Instant delivery • Secure payment • 24/7 Support</p>
 
-  <div class="actions">
+  <div class="cta">
     <a href="#services" class="primary">Browse Services</a>
     <a href="https://wa.me/9613177862" class="secondary">WhatsApp</a>
   </div>
@@ -42,21 +42,33 @@
   <div id="servicesGrid" class="grid"></div>
 </section>
 
+<section class="how">
+  <div class="section-title">HOW IT WORKS</div>
+  <div class="steps">
+    <div>Choose Service</div>
+    <div>Pick Plan</div>
+    <div>Get It Fast</div>
+  </div>
+</section>
+
 <div id="modal" class="modal hidden">
   <div class="box">
+
     <h3 id="modalTitle"></h3>
 
     <select id="planSelect"></select>
 
     <div class="price">Price: <span id="priceValue"></span></div>
 
-    <div class="actions2">
+    <div class="actions">
       <button id="cancelBtn">Cancel</button>
       <a id="buyBtn" target="_blank">Order</a>
     </div>
+
   </div>
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
