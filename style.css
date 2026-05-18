@@ -1,151 +1,214 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-
-body{
-  background:#0a0a0a;
-  color:#fff;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:system-ui;
 }
 
-/* topbar */
+body{
+background:#07070a;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* NAV */
 .topbar{
-  display:flex;
-  justify-content:space-between;
-  padding:20px;
+display:flex;
+justify-content:space-between;
+padding:20px 6%;
 }
 
 .logo{
-  font-weight:800;
-  font-size:22px;
+font-weight:900;
+letter-spacing:2px;
 }
 
 .btn{
-  background:#d4af37;
-  padding:10px 16px;
-  border-radius:12px;
-  color:#000;
-  text-decoration:none;
-  font-weight:700;
+background:linear-gradient(135deg,#f5d27a,#b88a1a);
+color:#000;
+padding:10px 16px;
+border-radius:12px;
+text-decoration:none;
+font-weight:700;
 }
 
-/* hero */
+/* HERO */
 .hero{
-  text-align:center;
-  padding:60px 20px;
+text-align:center;
+padding:60px 20px;
+}
+
+.badge{
+display:inline-block;
+padding:6px 12px;
+border:1px solid #d4af37;
+color:#d4af37;
+border-radius:999px;
+font-size:11px;
+margin-bottom:15px;
 }
 
 .hero h1{
-  font-size:34px;
+font-size:38px;
+font-weight:900;
+line-height:1.1;
+}
+
+.hero h1 span{
+color:#d4af37;
 }
 
 .hero p{
-  margin-top:10px;
-  color:#aaa;
+margin-top:10px;
+color:#aaa;
+font-size:13px;
 }
 
-.cta{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
+/* ACTIONS */
+.actions{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:20px;
 }
 
 .primary,.secondary{
-  padding:12px 18px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:700;
+padding:12px 16px;
+border-radius:12px;
+text-decoration:none;
+font-weight:700;
 }
 
 .primary{
-  background:#d4af37;
-  color:#000;
+background:#d4af37;
+color:#000;
 }
 
 .secondary{
-  border:1px solid #444;
-  color:#fff;
+border:1px solid #333;
+color:#fff;
 }
 
+/* STATS */
 .stats{
-  margin-top:25px;
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  font-size:13px;
-  color:#aaa;
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:25px;
 }
 
-/* services */
-#services{
-  padding:40px 20px;
+.stats div{
+background:#111;
+padding:12px 14px;
+border-radius:14px;
+border:1px solid #222;
+font-size:12px;
 }
 
-#services h2{
-  text-align:center;
-  margin-bottom:20px;
+.stats b{
+display:block;
+color:#d4af37;
 }
 
+/* TITLE */
+.section-title{
+text-align:center;
+color:#d4af37;
+margin:40px 0 20px;
+letter-spacing:2px;
+font-size:12px;
+}
+
+/* GRID */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+padding:0 15px 60px;
 }
 
 .card{
-  background:#141414;
-  padding:12px;
-  border-radius:16px;
-  text-align:center;
-  cursor:pointer;
+background:#121212;
+border-radius:18px;
+padding:12px;
+text-align:center;
+border:1px solid #222;
+cursor:pointer;
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:#d4af37;
+box-shadow:0 15px 30px rgba(212,175,55,.15);
 }
 
 .card img{
-  width:100%;
-  border-radius:12px;
+width:100%;
+border-radius:12px;
+margin-bottom:8px;
 }
 
-/* modal */
+/* MODAL */
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 .hidden{display:none}
 
 .box{
-  background:#111;
-  padding:20px;
-  border-radius:16px;
-  width:90%;
-  max-width:350px;
+background:#111;
+padding:20px;
+border-radius:16px;
+width:90%;
+max-width:360px;
+border:1px solid #222;
 }
 
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
+select{
+width:100%;
+padding:10px;
+border-radius:10px;
+background:#1a1a1a;
+color:#fff;
+border:1px solid #333;
+margin-top:10px;
 }
 
-.actions button,
-.actions a{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-  text-decoration:none;
+.price{
+margin-top:10px;
+color:#d4af37;
+font-weight:800;
 }
 
-.actions button{
-  background:#333;
-  color:#fff;
-  border:none;
+.actions2{
+display:flex;
+gap:10px;
+margin-top:15px;
 }
 
-.actions a{
-  background:#d4af37;
-  color:#000;
-  font-weight:700;
+.actions2 button,
+.actions2 a{
+flex:1;
+padding:10px;
+border-radius:10px;
+text-align:center;
+font-weight:700;
+text-decoration:none;
+}
+
+.actions2 button{
+background:#333;
+color:#fff;
+border:none;
+}
+
+.actions2 a{
+background:#d4af37;
+color:#000;
 }
