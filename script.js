@@ -3,13 +3,14 @@ const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 
 const grid=document.getElementById("servicesGrid");
 const modal=document.getElementById("modal");
-const title=document.getElementById("modalTitle");
 const select=document.getElementById("planSelect");
 const price=document.getElementById("priceValue");
 const buy=document.getElementById("buyBtn");
 
 let map={};
 let current="";
+
+const IMG_BASE="https://hcuorfjumfurcxrvvsmw.supabase.co/storage/v1/object/public/";
 
 async function load(){
 
@@ -38,12 +39,16 @@ grid.innerHTML="";
 Object.keys(map).forEach(name=>{
 const first=map[name][0];
 
+const img = first.image?.startsWith("http")
+? first.image
+: IMG_BASE + first.image;
+
 const div=document.createElement("div");
 div.className="card";
 
 div.innerHTML=`
-<img src="${first.image}">
-<h4>${name}</h4>
+<img src="${img}">
+<h3>${name}</h3>
 `;
 
 div.onclick=()=>open(name);
